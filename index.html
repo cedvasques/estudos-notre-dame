@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Missão CH da Maria — História e Geografia</title>
+<style>
+:root {
+  --bg:#eef7ff; --card:#ffffff; --ink:#1f2937; --muted:#64748b; --brand:#58cc02; --brandDark:#46a302;
+  --blue:#1cb0f6; --blueDark:#0d8acc; --red:#ff4b4b; --green:#16a34a; --line:#dbeafe; --yellow:#ffc800;
+  --purple:#8b5cf6; --orange:#f97316;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:linear-gradient(180deg,#dff4ff,#f8fafc 45%);color:var(--ink)}
+.app{max-width:980px;margin:0 auto;padding:18px}
+.hero,.card{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:18px;box-shadow:0 12px 28px rgba(15,23,42,.08)}
+.hero{padding:22px}
+h1{margin:0 0 8px;font-size:34px;line-height:1.05}
+h2{margin:8px 0 10px;font-size:24px}
+h3{margin:8px 0 6px}
+p{line-height:1.38;margin:8px 0}
+.big{font-size:21px;font-weight:900}
+.muted{color:var(--muted)}
+.badge{display:inline-block;border-radius:999px;padding:8px 12px;font-weight:900;margin:4px 6px 4px 0;background:#dcfce7;color:#166534}
+.badge.blue{background:#dbeafe;color:#1e40af} .badge.yellow{background:#fef3c7;color:#92400e} .badge.purple{background:#ede9fe;color:#5b21b6}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}
+.btn{border:0;border-radius:18px;padding:15px 18px;font-size:17px;font-weight:950;background:var(--brand);color:white;box-shadow:0 5px 0 var(--brandDark);cursor:pointer;touch-action:manipulation;user-select:none}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--brandDark)}
+.btn.secondary{background:var(--blue);box-shadow:0 5px 0 var(--blueDark)}
+.btn.gray{background:#64748b;box-shadow:0 5px 0 #334155}
+.btn.gold{background:#f59e0b;box-shadow:0 5px 0 #b45309}
+.btn.purple{background:var(--purple);box-shadow:0 5px 0 #6d28d9}
+.btn.red{background:var(--red);box-shadow:0 5px 0 #b91c1c}
+.lesson{min-height:178px;position:relative;overflow:hidden}
+.lesson .emoji{font-size:42px}
+.lesson .area{font-weight:900;color:#0f766e;font-size:13px;text-transform:uppercase;letter-spacing:.06em}
+.hidden{display:none!important}
+.topbar{position:sticky;top:0;background:rgba(238,247,255,.96);backdrop-filter:blur(8px);z-index:3;padding:10px 0;margin-bottom:8px}
+.progressOuter{height:16px;background:#dbeafe;border-radius:999px;overflow:hidden;flex:1;min-width:180px}
+.progressInner{height:100%;background:linear-gradient(90deg,var(--brand),#22c55e);width:0%;transition:.25s}
+.hearts{font-size:25px;letter-spacing:2px;white-space:nowrap}
+.score{font-weight:950;font-size:18px;white-space:nowrap}
+.option{width:100%;text-align:left;margin:8px 0;background:white;color:#111827;border:2px solid #cbd5e1;box-shadow:0 4px 0 #94a3b8;white-space:normal}
+.option.selected{border-color:var(--blue);background:#eff6ff}
+.option.correct{border-color:var(--green);background:#dcfce7}
+.option.wrong{border-color:var(--red);background:#fee2e2}
+.feedback{font-size:18px;font-weight:800;margin:12px 0;padding:14px;border-radius:18px;display:none}
+.feedback.good{display:block;background:#dcfce7;color:#166534}
+.feedback.bad{display:block;background:#fee2e2;color:#991b1b}
+.modeCard{cursor:pointer;transition:.15s}
+.modeCard:active{transform:scale(.99)}
+.kpi{font-size:30px;font-weight:950}
+.reviewItem{border-left:6px solid #f59e0b}
+.footer{margin:20px 0;color:#64748b;text-align:center;font-size:13px}
+.pill{display:inline-block;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:999px;padding:6px 9px;margin:3px;font-weight:700;font-size:13px}
+.flashAnswer{display:none;background:#f8fafc;border-radius:18px;padding:12px;margin-top:10px}
+.flashCard.revealed .flashAnswer{display:block}
+.flashCard.revealed .revealBtn{display:none}
+@media (max-width:640px){
+  .app{padding:12px} h1{font-size:29px} h2{font-size:22px}
+  .btn{font-size:16px;padding:14px 15px} .homeButtons .btn{width:100%}
+  .topbar .btn.gray{padding:10px 12px;border-radius:14px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <section class="hero" id="home">
+    <h1>🏆 Missão CH da Maria</h1>
+    <p class="big">Revisão gamificada baseada nas páginas do ZIP da prova.</p>
+    <p>Conteúdo coberto: patrimônio e memória, patrimônios do Brasil, lugares de memória, nomes de ruas, monumentos, comunidades, paisagens, água, luz solar, ação humana e recursos naturais.</p>
+    <div>
+      <span class="badge">❤️ vidas</span>
+      <span class="badge blue">⭐ pontos</span>
+      <span class="badge yellow">🧠 revisão dos erros</span>
+      <span class="badge purple">📱 feito para iPad</span>
+    </div>
+    <div class="grid homeButtons">
+      <div class="card modeCard" onclick="showLessons()"><div class="kpi">📚</div><h2>Estudar</h2><p>Cards curtos com o conteúdo principal.</p></div>
+      <div class="card modeCard" onclick="showFlashcards()"><div class="kpi">⚡</div><h2>Flashcards</h2><p>Vira-cards para treinar oralmente.</p></div>
+      <div class="card modeCard" onclick="startGame('História',15)"><div class="kpi">🏛️</div><h2>Fase História</h2><p>Patrimônio, memória, comunidades e monumentos.</p></div>
+      <div class="card modeCard" onclick="startGame('Geografia',15)"><div class="kpi">🌎</div><h2>Fase Geografia</h2><p>Paisagens, água, Sol, pessoas e recursos naturais.</p></div>
+      <div class="card modeCard" onclick="startGame('Todos',25)"><div class="kpi">🎯</div><h2>Simulado Final</h2><p>Mistura tudo, como treino de prova.</p></div>
+    </div>
+  </section>
+
+  <section id="lessons" class="hidden">
+    <div class="topbar row"><button class="btn gray" onclick="goHome()">Voltar</button><span class="big">📚 Cards de estudo</span></div>
+    <div class="grid" id="lessonGrid"></div>
+    <div class="card">
+      <h2>Como estudar hoje</h2>
+      <p>Leia os cards em voz alta. Depois faça História, Geografia e, por último, o Simulado Final. Se ficar abaixo de 80%, refaça só os assuntos em que errou.</p>
+    </div>
+  </section>
+
+  <section id="flashcards" class="hidden">
+    <div class="topbar row"><button class="btn gray" onclick="goHome()">Voltar</button><span class="big">⚡ Flashcards</span></div>
+    <div id="flashGrid" class="grid"></div>
+  </section>
+
+  <section id="game" class="hidden">
+    <div class="topbar">
+      <div class="row">
+        <button class="btn gray" onclick="goHome()">Sair</button>
+        <div class="progressOuter"><div class="progressInner" id="progress"></div></div>
+        <div class="hearts" id="hearts"></div>
+        <div class="score" id="score"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="muted" id="topic"></div>
+      <h2 id="question"></h2>
+      <div id="options"></div>
+      <div id="feedback" class="feedback"></div>
+      <div class="row">
+        <button class="btn secondary" id="checkBtn" onclick="checkAnswer()">Conferir</button>
+        <button class="btn" id="nextBtn" onclick="nextQuestion()" style="display:none">Próxima</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="end" class="hidden">
+    <div class="card">
+      <h1 id="endTitle"></h1>
+      <p class="big" id="endScore"></p>
+      <p id="endMsg"></p>
+      <div id="weakTopics"></div>
+      <div id="review"></div>
+      <div class="row" style="margin-top:14px">
+        <button class="btn secondary" onclick="showLessons()">Rever cards</button>
+        <button class="btn purple" onclick="showFlashcards()">Flashcards</button>
+        <button class="btn" onclick="startGame(lastMode,lastCount)">Refazer</button>
+        <button class="btn gold" onclick="startGame('Todos',25)">Simulado Final</button>
+        <button class="btn gray" onclick="goHome()">Início</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">Arquivo único HTML. Funciona offline depois de baixado.</div>
+</div>
+
+<script>
+const LESSONS = [{"area": "História", "title": "Patrimônio e memória", "emoji": "🏛️", "text": "Patrimônio cultural é o conjunto de bens que têm especial valor para um povo e devem ser conservados. Ele ajuda a guardar a memória e a identidade das pessoas."}, {"area": "História", "title": "Patrimônio material", "emoji": "🏢", "text": "É o patrimônio que podemos ver e tocar: prédios, igrejas, museus, esculturas, documentos, pinturas, objetos, centros históricos e monumentos."}, {"area": "História", "title": "Patrimônio imaterial", "emoji": "🎭", "text": "É o patrimônio ligado aos costumes e modos de vida: danças, festas, músicas, brincadeiras, receitas, artesanato, saberes e modos de fazer."}, {"area": "História", "title": "Patrimônio natural", "emoji": "🌿", "text": "É formado por paisagens e formações naturais importantes, como cataratas, montanhas, florestas, rios, cavernas e lugares de grande beleza ou valor ambiental."}, {"area": "História", "title": "Quem cuida do patrimônio?", "emoji": "🛡️", "text": "No Brasil, o Iphan ajuda a proteger o patrimônio histórico e artístico nacional. A população também deve cuidar, respeitar e valorizar esses bens."}, {"area": "História", "title": "Tombamento, restauração e descaracterização", "emoji": "🔧", "text": "Tombamento é uma forma de proteção oficial. Restauração é recuperar um bem preservando suas características. Descaracterização é quando uma mudança tira características importantes do bem."}, {"area": "História", "title": "Lugares de memória", "emoji": "🧠", "text": "Lugares de memória são espaços que ajudam a lembrar fatos, pessoas e histórias importantes: ruas, praças, museus, monumentos, prédios antigos e locais históricos."}, {"area": "História", "title": "Nomes de ruas", "emoji": "🪧", "text": "Nomes de ruas podem homenagear pessoas, fatos históricos, grupos ou lugares. Por isso, placas de rua também podem guardar memória."}, {"area": "História", "title": "Monumentos", "emoji": "🗿", "text": "Monumentos são construções ou obras feitas para homenagear pessoas, acontecimentos ou ideias. Podem ser bustos, estátuas, obeliscos, esculturas e outros marcos."}, {"area": "História", "title": "Comunidades", "emoji": "🏘️", "text": "Comunidade é um conjunto de pessoas que tem algo em comum: morar no mesmo lugar, participar de festas, conversar, brincar, trabalhar ou se relacionar."}, {"area": "História", "title": "Comunidade de Alphaville", "emoji": "🤝", "text": "O material mostra Alphaville como exemplo de comunidade com grupos de relacionamento, vizinhos, festas juninas, churrascos e comunicação por redes sociais."}, {"area": "Geografia", "title": "Paisagem", "emoji": "🖼️", "text": "Paisagem é tudo aquilo que percebemos em um lugar. Pode ter elementos naturais, como rios e árvores, e elementos construídos, como casas, ruas e pontes."}, {"area": "Geografia", "title": "A natureza altera as paisagens", "emoji": "🌎", "text": "Sol, ventos, chuvas, rios, mares, neve, terremotos e vulcões podem alterar as paisagens. Algumas mudanças são rápidas; outras acontecem lentamente."}, {"area": "Geografia", "title": "Águas e paisagens", "emoji": "💧", "text": "Chuvas, rios, oceanos e mares transformam paisagens. A água pode causar enchentes, transbordamentos, erosão, transporte de sedimentos e desgaste das rochas."}, {"area": "Geografia", "title": "Vento e paisagem", "emoji": "🌬️", "text": "O vento também modifica paisagens, mas geralmente de forma lenta, ao longo de milhares de anos, desgastando rochas e transportando areia."}, {"area": "Geografia", "title": "Luz solar e paisagens", "emoji": "☀️", "text": "A luz do Sol e a alternância entre dia e noite influenciam as paisagens, as temperaturas, a vida das pessoas e o crescimento das plantas."}, {"area": "Geografia", "title": "Intensidade dos raios solares", "emoji": "🌡️", "text": "Maior intensidade dos raios solares costuma provocar temperaturas mais altas. Menor intensidade costuma provocar temperaturas mais baixas."}, {"area": "Geografia", "title": "Pessoas alteram paisagens", "emoji": "👷", "text": "As pessoas modificam paisagens por meio do trabalho, usando técnicas, equipamentos e ferramentas: constroem moradias, pavimentam ruas, plantam, extraem recursos e constroem cidades."}, {"area": "Geografia", "title": "Recursos naturais", "emoji": "⛏️", "text": "Recursos naturais são elementos da natureza usados pelos seres humanos, como água, solo, madeira, minerais e materiais retirados do subsolo."}, {"area": "Geografia", "title": "Renováveis e não renováveis", "emoji": "♻️", "text": "Recursos renováveis podem ser repostos pela natureza. Recursos não renováveis podem acabar, pois levam muito tempo para se formar, como muitos minerais."}];
+const QUESTIONS = [{"area": "História", "topic": "Patrimônio e memória", "q": "O que é patrimônio cultural?", "opts": ["Conjunto de bens com valor especial para um povo", "Somente paisagens naturais sem pessoas", "Apenas objetos novos comprados em lojas", "Uma lista de ruas sem importância"], "a": 0, "exp": "Patrimônio cultural reúne bens, práticas e lugares com valor para a memória e a identidade de um povo."}, {"area": "História", "topic": "Patrimônio e memória", "q": "Por que preservar patrimônios é importante?", "opts": ["Porque fazem as paisagens nunca mudarem", "Porque deixam todos os prédios iguais", "Porque ajudam a lembrar a história e a identidade de um povo", "Porque impedem que as pessoas estudem o passado"], "a": 2, "exp": "Preservar patrimônio ajuda as pessoas a conhecer e valorizar sua história."}, {"area": "História", "topic": "Patrimônio material", "q": "Patrimônio material é aquele que...", "opts": ["só existe na memória", "é formado apenas por músicas", "nunca ocupa espaço", "pode ser visto e tocado"], "a": 3, "exp": "Patrimônio material é físico: prédios, obras, objetos, documentos e monumentos."}, {"area": "História", "topic": "Patrimônio material", "q": "Qual alternativa traz apenas exemplos de patrimônio material?", "opts": ["Museu, estátua e prédio histórico", "Dança, receita e música", "Festa, brincadeira e modo de fazer", "Rio, vento e chuva"], "a": 0, "exp": "Museus, estátuas e prédios históricos são bens físicos."}, {"area": "História", "topic": "Patrimônio material", "q": "Uma igreja antiga preservada em uma cidade pode ser exemplo de...", "opts": ["patrimônio material", "patrimônio imaterial", "paisagem sem ação humana", "recurso renovável"], "a": 0, "exp": "Uma igreja é uma construção física e pode ter grande valor histórico."}, {"area": "História", "topic": "Patrimônio material", "q": "O Museu de Arte Sacra, o Museu do Amanhã e uma estátua em praça pública são exemplos de...", "opts": ["costumes imateriais", "recursos do subsolo", "bens materiais", "fenômenos naturais"], "a": 2, "exp": "Todos são exemplos de bens físicos ligados à cultura e à memória."}, {"area": "História", "topic": "Patrimônio imaterial", "q": "Patrimônio imaterial é formado por...", "opts": ["objetos que precisam ser tocados", "apenas rios e montanhas", "costumes, saberes, festas, danças e modos de fazer", "somente prédios e estátuas"], "a": 2, "exp": "Ele está ligado às práticas culturais e conhecimentos transmitidos entre gerações."}, {"area": "História", "topic": "Patrimônio imaterial", "q": "Qual é exemplo de patrimônio imaterial?", "opts": ["Uma ponte antiga", "Uma festa tradicional", "Uma rocha no litoral", "Um edifício histórico"], "a": 1, "exp": "Festas tradicionais fazem parte dos costumes de um povo."}, {"area": "História", "topic": "Patrimônio imaterial", "q": "O modo gaúcho de fazer churrasco, mostrado no material, é exemplo de...", "opts": ["tombamento de prédio", "monumento", "patrimônio natural", "patrimônio imaterial"], "a": 3, "exp": "É um saber e uma prática cultural, não apenas um objeto."}, {"area": "História", "topic": "Patrimônio imaterial", "q": "A produção de queijo tradicional, como a mostrada no material, pode ser patrimônio porque envolve...", "opts": ["um raio solar direto", "apenas uma pedra antiga", "uma avenida pavimentada", "um modo de fazer transmitido culturalmente"], "a": 3, "exp": "Saberes culinários e modos de preparo podem ser patrimônio imaterial."}, {"area": "História", "topic": "Patrimônio imaterial", "q": "Uma mulher tecendo renda filé representa melhor qual tipo de patrimônio?", "opts": ["Imaterial, pelo saber e modo de fazer", "Geográfico, porque é uma rua", "Material, porque é uma enchente", "Natural, porque vem do Sol"], "a": 0, "exp": "O saber artesanal e a técnica tradicional são exemplos de patrimônio imaterial."}, {"area": "História", "topic": "Patrimônio natural", "q": "Patrimônio natural é formado por...", "opts": ["placas com nomes de ruas", "apenas prédios históricos", "paisagens e formações da natureza importantes", "somente festas e danças"], "a": 2, "exp": "Cataratas, florestas e montanhas podem ser patrimônios naturais."}, {"area": "História", "topic": "Patrimônio natural", "q": "Qual alternativa é exemplo de patrimônio natural?", "opts": ["Busto de Machado de Assis", "Cataratas do Iguaçu", "Rua Zumbi dos Palmares", "Museu do Amanhã"], "a": 1, "exp": "As Cataratas do Iguaçu são uma paisagem natural importante."}, {"area": "História", "topic": "Patrimônio natural", "q": "O Corcovado e as Cataratas do Iguaçu foram citados como exemplos de...", "opts": ["monumentos de bronze", "patrimônio imaterial apenas", "patrimônio natural brasileiro", "nomes de ruas"], "a": 2, "exp": "São paisagens naturais de grande importância."}, {"area": "História", "topic": "Preservação", "q": "Quem cuida do patrimônio no Brasil, segundo o material?", "opts": ["Apenas crianças da escola", "O Iphan e também a sociedade", "Ninguém, pois patrimônio não precisa de cuidado", "Somente os turistas"], "a": 1, "exp": "O Iphan é um órgão importante, mas a população também deve preservar."}, {"area": "História", "topic": "Preservação", "q": "O que é tombamento?", "opts": ["A destruição de um prédio antigo", "Uma mudança que apaga características históricas", "Uma forma de proteção oficial de um bem importante", "Uma festa comunitária"], "a": 2, "exp": "Tombamento protege bens com valor histórico, artístico, cultural ou natural."}, {"area": "História", "topic": "Preservação", "q": "O que é restauração?", "opts": ["Apagar a memória de um lugar", "Dar outro nome a uma rua", "Recuperar um bem preservando suas características", "Mudar totalmente um prédio histórico"], "a": 2, "exp": "Restaurar é recuperar sem descaracterizar."}, {"area": "História", "topic": "Preservação", "q": "O que é descaracterização de um bem histórico?", "opts": ["Recuperação cuidadosa do patrimônio", "Uma dança tradicional", "Proteção oficial feita pelo Iphan", "Alteração que tira características importantes do bem"], "a": 3, "exp": "Descaracterizar é mudar de um modo que prejudica a identidade do bem."}, {"area": "História", "topic": "Preservação", "q": "Quando uma comunidade conserva um museu, uma igreja antiga ou uma praça histórica, ela está...", "opts": ["criando erosão", "transformando recurso renovável em não renovável", "preservando sua memória", "aumentando a intensidade solar"], "a": 2, "exp": "Cuidar desses lugares ajuda a preservar a memória coletiva."}, {"area": "História", "topic": "Lugares de memória", "q": "Lugares de memória são espaços que...", "opts": ["ajudam a lembrar fatos, pessoas e histórias importantes", "não têm relação com o passado", "existem apenas em livros", "são sempre naturais e sem construções"], "a": 0, "exp": "Eles guardam lembranças importantes para uma comunidade."}, {"area": "História", "topic": "Nomes de ruas", "q": "Os nomes das ruas podem ser considerados importantes porque...", "opts": ["são escolhidos ao acaso todos os dias", "podem homenagear pessoas, fatos e personagens históricos", "servem apenas para decorar placas", "não dizem nada sobre a cidade"], "a": 1, "exp": "O nome de uma rua pode manter viva uma memória."}, {"area": "História", "topic": "Nomes de ruas", "q": "A Rua Dona Maria Quitéria, mostrada no material, é exemplo de rua que...", "opts": ["é um recurso do subsolo", "foi formada pela erosão", "homenageia uma personagem histórica", "representa uma chuva forte"], "a": 2, "exp": "Nomes de ruas podem homenagear personagens importantes da história."}, {"area": "História", "topic": "Nomes de ruas", "q": "Quem atualmente costuma decidir os nomes das ruas?", "opts": ["Apenas visitantes estrangeiros", "Qualquer pessoa sem nenhuma regra", "Vereadores, políticos que representam os moradores do município", "Somente crianças da escola"], "a": 2, "exp": "O material explica que, atualmente, vereadores propõem e decidem muitos nomes de ruas."}, {"area": "História", "topic": "Nomes de ruas", "q": "Rua Zumbi dos Palmares e Rua Domingos Jorge Velho aparecem no material para mostrar que nomes de ruas podem estar ligados a...", "opts": ["recursos não renováveis", "temperaturas baixas", "memórias e interpretações da história", "chuvas e enchentes"], "a": 2, "exp": "Nomes de ruas podem revelar como uma sociedade lembra personagens históricos."}, {"area": "História", "topic": "Monumentos", "q": "Monumentos são construções ou obras feitas para...", "opts": ["substituir as chuvas", "homenagear pessoas, acontecimentos ou ideias", "aumentar a erosão dos rios", "medir a luz solar"], "a": 1, "exp": "Monumentos ajudam a lembrar e homenagear."}, {"area": "História", "topic": "Monumentos", "q": "Qual alternativa apresenta tipos de monumentos citados no material?", "opts": ["Bustos, estátuas e obeliscos", "Ventos, neve e vulcões", "Solo, subsolo e cimento", "Rios, mares e chuvas"], "a": 0, "exp": "O material menciona bustos, estátuas e obeliscos como tipos de monumentos."}, {"area": "História", "topic": "Monumentos", "q": "Um busto representa principalmente...", "opts": ["um material retirado do subsolo", "um rio que transborda", "uma praça inteira vista de cima", "a cabeça, o pescoço e parte superior do corpo"], "a": 3, "exp": "Bustos representam parte do corpo de uma pessoa homenageada."}, {"area": "História", "topic": "Monumentos", "q": "Uma estátua geralmente representa...", "opts": ["uma enchente", "uma nuvem de chuva", "uma rocha desgastada pelo mar", "uma pessoa homenageada de corpo inteiro"], "a": 3, "exp": "A estátua pode representar uma pessoa inteira, de pé, sentada ou a cavalo."}, {"area": "História", "topic": "Monumentos", "q": "Um obelisco é...", "opts": ["uma construção em forma de pirâmide alongada, geralmente para lembrar um episódio importante", "um tipo de vento", "uma receita tradicional", "uma rede social de moradores"], "a": 0, "exp": "O material descreve o obelisco como um monumento alongado com base mais larga."}, {"area": "História", "topic": "Comunidades", "q": "O que é comunidade?", "opts": ["Um prédio tombado", "Um tipo de recurso mineral", "Conjunto de pessoas que tem algo em comum", "Uma paisagem formada só por rochas"], "a": 2, "exp": "Pessoas de uma comunidade compartilham convivência, território, interesses ou relações."}, {"area": "História", "topic": "Comunidades", "q": "Uma comunidade pode ser formada por pessoas que...", "opts": ["vivem somente em museus", "moram no mesmo lugar, conversam, fazem festas ou compartilham interesses", "são apenas personagens de monumentos", "não têm nenhuma relação entre si"], "a": 1, "exp": "O material mostra comunidade como convivência e relações entre pessoas."}, {"area": "História", "topic": "Comunidades", "q": "Na imagem da unidade, as pessoas aparecem conversando, brincando e festejando. Isso mostra que comunidade envolve...", "opts": ["somente luz solar", "recursos do subsolo", "convivência e participação", "apenas erosão"], "a": 2, "exp": "Comunidade envolve relações sociais e participação das pessoas."}, {"area": "História", "topic": "Comunidade de Alphaville", "q": "O texto sobre Alphaville mostra uma comunidade em que os moradores...", "opts": ["só estudam monumentos", "mantêm grupos, fazem festas e se relacionam", "vivem isolados sem conversar", "não têm vizinhos"], "a": 1, "exp": "O texto cita grupos de relacionamento, festas juninas, churrasco e comunicação entre moradores."}, {"area": "História", "topic": "Comunidade de Alphaville", "q": "Festas juninas, churrasco e grupos de mensagens ajudam uma comunidade porque...", "opts": ["impedem qualquer convivência", "aproximam as pessoas e criam relações", "transformam ruas em rios", "destroem a memória local"], "a": 1, "exp": "Essas atividades fortalecem a convivência."}, {"area": "Geografia", "topic": "Paisagens", "q": "Paisagem é tudo aquilo que...", "opts": ["percebemos em um lugar, com elementos naturais e construídos", "é sempre apenas uma floresta", "só existe dentro dos museus", "não pode mudar nunca"], "a": 0, "exp": "Paisagem é formada por elementos naturais e também por elementos criados pelas pessoas."}, {"area": "Geografia", "topic": "Natureza altera paisagens", "q": "Quais elementos da natureza podem alterar paisagens?", "opts": ["Apenas nomes de ruas", "Somente bustos e estátuas", "Sol, ventos, chuvas, rios, mares, neve, terremotos e vulcões", "Apenas festas e receitas"], "a": 2, "exp": "O material apresenta vários agentes naturais que transformam as paisagens."}, {"area": "Geografia", "topic": "Natureza altera paisagens", "q": "As chuvas intensas podem causar...", "opts": ["escolha de nomes de ruas", "diminuição automática de todos os rios", "transbordamento dos rios e danos às paisagens", "criação de monumentos históricos"], "a": 2, "exp": "Chuvas fortes podem provocar enchentes, transbordamentos e destruição."}, {"area": "Geografia", "topic": "Natureza altera paisagens", "q": "Quando um rio sai do seu curso normal e invade áreas próximas, ocorre...", "opts": ["restauração", "transbordamento", "comunidade", "tombamento"], "a": 1, "exp": "Transbordamento é quando a água ultrapassa as bordas do rio."}, {"area": "Geografia", "topic": "Natureza altera paisagens", "q": "A forma da rocha que aparece no litoral pode ser resultado de...", "opts": ["ação das ondas do mar por milhares de anos", "nomes de ruas escolhidos por vereadores", "uma festa tradicional", "uma estátua construída na praça"], "a": 0, "exp": "Ondas desgastam rochas lentamente ao longo do tempo."}, {"area": "Geografia", "topic": "Natureza altera paisagens", "q": "O vento pode modificar uma paisagem...", "opts": ["apenas mudando nomes de ruas", "somente em um segundo sempre", "lentamente, ao longo de muitos anos", "sem tocar em areia ou rochas"], "a": 2, "exp": "A ação do vento costuma ser lenta, mas transforma rochas e dunas."}, {"area": "Geografia", "topic": "Natureza altera paisagens", "q": "Algumas mudanças nas paisagens acontecem rapidamente; outras acontecem...", "opts": ["apenas em cidades grandes", "somente durante a noite", "muito lentamente, ao longo do tempo", "sem ação da natureza"], "a": 2, "exp": "A paisagem pode mudar em tempos diferentes."}, {"area": "Geografia", "topic": "Águas e paisagens", "q": "Chuvas, rios, oceanos e mares podem...", "opts": ["virar patrimônio imaterial sempre", "impedir qualquer mudança", "transformar paisagens", "escolher vereadores"], "a": 2, "exp": "A água é um agente natural importante na transformação das paisagens."}, {"area": "Geografia", "topic": "Águas e paisagens", "q": "Chuvas fracas podem causar...", "opts": ["o surgimento de bustos", "sempre destruição total de cidades", "pequenas alterações nas paisagens", "a escolha de nomes de ruas"], "a": 2, "exp": "Chuvas fracas tendem a causar mudanças menores."}, {"area": "Geografia", "topic": "Águas e paisagens", "q": "Chuvas fortes podem causar...", "opts": ["nenhuma mudança", "apenas festas juninas", "somente calor intenso", "grandes alterações nas paisagens"], "a": 3, "exp": "Chuvas intensas podem provocar alagamentos, enchentes e danos."}, {"area": "Geografia", "topic": "Águas e paisagens", "q": "A ponte destruída por fortes chuvas, mostrada no material, é exemplo de...", "opts": ["patrimônio natural sem alteração", "nome de rua histórico", "monumento imaterial", "mudança na paisagem causada pela água"], "a": 3, "exp": "A força da água pode danificar construções e modificar a paisagem."}, {"area": "Geografia", "topic": "Águas e paisagens", "q": "A comparação de fotos de uma mesma praia antes e depois de mudanças no nível da água mostra que...", "opts": ["a paisagem pode mudar com o tempo", "o Sol não interfere na Terra", "ruas são sempre patrimônio natural", "a paisagem nunca muda"], "a": 0, "exp": "Comparar fotos ajuda a perceber transformações nas paisagens."}, {"area": "Geografia", "topic": "Águas e paisagens", "q": "Quando a água desgasta o solo ou as rochas, chamamos esse processo de...", "opts": ["obelisco", "restauração", "erosão", "comunidade"], "a": 2, "exp": "Erosão é o desgaste causado por água, vento ou outros agentes."}, {"area": "Geografia", "topic": "Águas e paisagens", "q": "Areia, terra e pedrinhas carregadas pela água são chamadas de...", "opts": ["sedimentos", "tradições", "monumentos", "bustos"], "a": 0, "exp": "Sedimentos são materiais transportados pela água ou pelo vento."}, {"area": "Geografia", "topic": "Luz solar", "q": "A luz do Sol e a alternância entre dia e noite influenciam...", "opts": ["apenas os nomes de ruas", "as paisagens e a vida das pessoas", "somente os monumentos", "apenas as receitas tradicionais"], "a": 1, "exp": "A luz solar influencia temperatura, plantas, rotina e paisagens."}, {"area": "Geografia", "topic": "Luz solar", "q": "A Lua não produz luz própria; ela é vista porque...", "opts": ["é uma lâmpada da Terra", "recebe nomes de ruas", "é um monumento natural construído", "reflete a luz do Sol"], "a": 3, "exp": "A luz que vemos na Lua é reflexo da luz solar."}, {"area": "Geografia", "topic": "Luz solar", "q": "Uma paisagem fotografada de dia e à noite pode parecer diferente porque...", "opts": ["a comunidade desaparece", "a iluminação muda a forma como percebemos o lugar", "as ruas trocam de nome", "os patrimônios deixam de existir à noite"], "a": 1, "exp": "A iluminação altera cores, sombras e percepção da paisagem."}, {"area": "Geografia", "topic": "Intensidade dos raios solares", "q": "Maior intensidade dos raios solares costuma provocar...", "opts": ["temperaturas mais altas", "destruição de monumentos", "temperaturas sempre negativas", "tombamento de ruas"], "a": 0, "exp": "Mais radiação solar direta geralmente aquece mais."}, {"area": "Geografia", "topic": "Intensidade dos raios solares", "q": "Menor intensidade dos raios solares costuma provocar...", "opts": ["temperaturas mais baixas", "formação de bustos", "enchentes obrigatórias", "calor extremo sempre"], "a": 0, "exp": "Menor intensidade solar tende a aquecer menos."}, {"area": "Geografia", "topic": "Intensidade dos raios solares", "q": "Uma roupa leve, como camiseta, é mais adequada para...", "opts": ["restauração de patrimônio", "frio intenso", "dia de maior calor", "transbordamento de rio"], "a": 2, "exp": "Em dias quentes usamos roupas mais leves."}, {"area": "Geografia", "topic": "Intensidade dos raios solares", "q": "Gorro e blusa de frio são mais adequados quando...", "opts": ["a temperatura está muito alta", "uma rua muda de nome", "a temperatura está baixa", "há uma festa junina apenas"], "a": 2, "exp": "Roupas quentes ajudam em dias frios."}, {"area": "Geografia", "topic": "Intensidade dos raios solares", "q": "A temperatura de 33 °C indica um dia mais...", "opts": ["quente", "sem luz solar", "frio", "igual a 15 °C"], "a": 0, "exp": "33 °C é temperatura alta."}, {"area": "Geografia", "topic": "Intensidade dos raios solares", "q": "A temperatura de 15 °C indica um dia mais...", "opts": ["sem paisagem", "igual a 33 °C", "frio", "quente"], "a": 2, "exp": "15 °C é temperatura mais baixa."}, {"area": "Geografia", "topic": "Pessoas alteram paisagens", "q": "As pessoas alteram as paisagens por meio...", "opts": ["apenas da luz da Lua", "de nomes de personagens históricos", "somente do vento natural", "do trabalho, usando técnicas, equipamentos e ferramentas"], "a": 3, "exp": "O material destaca trabalho, técnicas, equipamentos e ferramentas."}, {"area": "Geografia", "topic": "Pessoas alteram paisagens", "q": "A construção de moradias modifica a paisagem porque...", "opts": ["é uma ação exclusiva dos rios", "não muda nada no espaço", "é sempre patrimônio imaterial", "substitui ou altera elementos do lugar por construções humanas"], "a": 3, "exp": "Construções humanas mudam a aparência e o uso do espaço."}, {"area": "Geografia", "topic": "Pessoas alteram paisagens", "q": "A pavimentação de uma rua é exemplo de...", "opts": ["ação das ondas do mar", "modificação da paisagem feita pelas pessoas", "luz solar refletida na Lua", "patrimônio imaterial"], "a": 1, "exp": "Pavimentar rua é uma intervenção humana."}, {"area": "Geografia", "topic": "Pessoas alteram paisagens", "q": "No quadrinho do Snoopy, o nascimento do passarinho altera a paisagem porque...", "opts": ["um obelisco é construído", "a rua recebe novo nome", "um patrimônio é tombado", "ocorre uma mudança no ambiente observado"], "a": 3, "exp": "A atividade pede observar mudanças em uma paisagem ao longo da história."}, {"area": "Geografia", "topic": "Pessoas alteram paisagens", "q": "Plantações, ruas, casas e pontes são exemplos de...", "opts": ["somente luz solar", "elementos construídos ou modificados pelos seres humanos", "apenas patrimônio imaterial", "somente fenômenos naturais"], "a": 1, "exp": "São marcas da ação humana na paisagem."}, {"area": "Geografia", "topic": "Recursos naturais", "q": "Recursos naturais são...", "opts": ["somente nomes de ruas", "apenas estátuas em praças", "elementos da natureza utilizados pelos seres humanos", "festas realizadas por comunidades"], "a": 2, "exp": "Água, solo, madeira e minerais são exemplos de recursos naturais."}, {"area": "Geografia", "topic": "Recursos naturais", "q": "Água, solo e subsolo são exemplos de...", "opts": ["monumentos históricos", "bustos e estátuas", "patrimônios imateriais", "recursos naturais"], "a": 3, "exp": "Esses elementos da natureza podem ser usados pelas pessoas."}, {"area": "Geografia", "topic": "Recursos naturais", "q": "Recursos renováveis são aqueles que...", "opts": ["podem ser repostos pela natureza", "só existem em museus", "são sempre monumentos", "nunca voltam a existir"], "a": 0, "exp": "Renováveis podem se recompor naturalmente, desde que não sejam explorados de forma excessiva."}, {"area": "Geografia", "topic": "Recursos naturais", "q": "Recursos não renováveis são aqueles que...", "opts": ["podem se esgotar, pois demoram muito para se formar", "não vêm da natureza", "se renovam todos os dias com facilidade", "são sempre danças e festas"], "a": 0, "exp": "Muitos minerais são não renováveis porque sua formação leva muito tempo."}, {"area": "Geografia", "topic": "Recursos naturais", "q": "O calcário, retirado do subsolo e usado na produção de cimento, é exemplo de...", "opts": ["lugar de memória", "recurso natural mineral", "patrimônio imaterial", "festa de comunidade"], "a": 1, "exp": "O material mostra uma mina de calcário e explica seu uso no cimento."}, {"area": "Geografia", "topic": "Recursos naturais", "q": "A retirada de recursos naturais também transforma paisagens porque...", "opts": ["não deixa nenhuma marca", "é sempre causada pela Lua", "muda o relevo, o solo e o uso do espaço", "só altera nomes de ruas"], "a": 2, "exp": "Mineração e extração de materiais alteram bastante a paisagem."}, {"area": "Misto", "topic": "Revisão geral", "q": "Qual combinação está correta?", "opts": ["Material: prédio; Imaterial: festa; Natural: catarata", "Material: receita; Imaterial: rocha; Natural: obelisco", "Material: dança; Imaterial: ponte; Natural: estátua", "Material: vento; Imaterial: museu; Natural: rua"], "a": 0, "exp": "Prédio é físico; festa é tradição; catarata é natureza."}, {"area": "Misto", "topic": "Revisão geral", "q": "Qual frase está correta?", "opts": ["Só a natureza muda paisagens, nunca as pessoas", "Paisagens nunca se transformam", "Só as pessoas mudam paisagens, nunca a natureza", "A paisagem pode mudar pela ação da natureza e das pessoas"], "a": 3, "exp": "O material mostra mudanças naturais e humanas."}, {"area": "Misto", "topic": "Revisão geral", "q": "Uma praça com estátua, árvores e pessoas conversando reúne...", "opts": ["monumento, elementos naturais e vida em comunidade", "somente ação das ondas", "apenas luz da Lua", "apenas recursos não renováveis"], "a": 0, "exp": "A praça pode ter memória, natureza e convivência social."}, {"area": "Misto", "topic": "Revisão geral", "q": "Se uma enchente destrói uma ponte, qual tema da prova ajuda a explicar isso?", "opts": ["Patrimônio imaterial", "Nomes de ruas", "Águas e paisagens", "Monumentos"], "a": 2, "exp": "Chuvas e rios podem causar grandes alterações nas paisagens."}, {"area": "Misto", "topic": "Revisão geral", "q": "Se uma rua homenageia uma pessoa importante da história, ela está relacionada a...", "opts": ["intensidade solar", "recursos renováveis", "lugares de memória", "erosão do solo"], "a": 2, "exp": "Nomes de ruas podem guardar memória histórica."}, {"area": "Misto", "topic": "Revisão geral", "q": "Se uma comunidade organiza festas e mantém tradições, isso se relaciona principalmente com...", "opts": ["mineração de calcário", "convivência e patrimônio imaterial", "temperatura de 15 °C", "ondas do mar"], "a": 1, "exp": "Festas e tradições aproximam pessoas e podem ser patrimônio imaterial."}];
+let current=[], idx=0, selected=null, lives=3, points=0, mistakes=[], lastMode='Todos', lastCount=25, locked=false;
+
+function shuffle(arr) { return [...arr].sort(()=>Math.random()-0.5); }
+function hideAll() { ['home','lessons','flashcards','game','end'].forEach(id=>document.getElementById(id).classList.add('hidden')); }
+function goHome() { hideAll(); document.getElementById('home').classList.remove('hidden'); window.scrollTo(0,0); }
+
+function showLessons() {
+  hideAll(); document.getElementById('lessons').classList.remove('hidden');
+  const grid=document.getElementById('lessonGrid'); grid.innerHTML='';
+  LESSONS.forEach(l=>grid.innerHTML += `<div class="card lesson"><div class="area">${l.area}</div><div class="emoji">${l.emoji}</div><h2>${l.title}</h2><p>${l.text}</p></div>`);
+  window.scrollTo(0,0);
+}
+
+function showFlashcards() {
+  hideAll(); document.getElementById('flashcards').classList.remove('hidden');
+  const sample = [
+    ['O que é patrimônio material?', 'Bens físicos, como prédios, museus, estátuas, documentos e objetos.'],
+    ['O que é patrimônio imaterial?', 'Tradições, saberes e modos de fazer, como festas, danças, receitas e artesanato.'],
+    ['O que é patrimônio natural?', 'Paisagens e formações da natureza importantes, como cataratas, rios, florestas e montanhas.'],
+    ['Para que serve o tombamento?', 'Para proteger oficialmente um bem importante.'],
+    ['O que são lugares de memória?', 'Lugares que ajudam a lembrar fatos, pessoas e histórias importantes.'],
+    ['Por que nomes de ruas podem ser memória?', 'Porque podem homenagear personagens, fatos ou grupos históricos.'],
+    ['O que é um monumento?', 'Obra ou construção feita para homenagear pessoas, acontecimentos ou ideias.'],
+    ['O que é uma comunidade?', 'Grupo de pessoas que compartilha algo e convive de alguma forma.'],
+    ['Como a água altera paisagens?', 'Com chuvas, enchentes, erosão, transporte de sedimentos e ação das ondas.'],
+    ['Como o vento altera paisagens?', 'Desgastando rochas e transportando materiais lentamente.'],
+    ['O que maior intensidade solar provoca?', 'Temperaturas mais altas.'],
+    ['Como pessoas alteram paisagens?', 'Construindo moradias, ruas, pontes, plantações e extraindo recursos naturais.'],
+    ['O que são recursos naturais?', 'Elementos da natureza usados pelas pessoas, como água, solo, madeira e minerais.'],
+    ['O que é recurso não renovável?', 'Recurso que pode se esgotar porque demora muito para se formar.']
+  ];
+  const grid=document.getElementById('flashGrid'); grid.innerHTML='';
+  sample.forEach((f,i)=> {
+    grid.innerHTML += `<div class="card flashCard" onclick="this.classList.add('revealed')"><h2>${i+1}. ${f[0]}</h2><button class="btn secondary revealBtn">Ver resposta</button><div class="flashAnswer"><p class="big">${f[1]}</p></div></div>`;
+  });
+  window.scrollTo(0,0);
+}
+
+function startGame(mode,count) {
+  lastMode=mode; lastCount=count; hideAll(); document.getElementById('game').classList.remove('hidden');
+  let pool = mode==='Todos' ? QUESTIONS : QUESTIONS.filter(q=>q.area===mode || q.area==='Misto');
+  current = shuffle(pool).slice(0, Math.min(count, pool.length));
+  idx=0; lives=3; points=0; mistakes=[]; selected=null; locked=false; renderQ(); window.scrollTo(0,0);
+}
+
+function renderQ() {
+  selected=null; locked=false;
+  const q=current[idx];
+  document.getElementById('progress').style.width = `${Math.round((idx/current.length)*100)}%`;
+  document.getElementById('hearts').textContent = '❤️'.repeat(lives) + '🤍'.repeat(Math.max(0,3-lives));
+  document.getElementById('score').textContent = `⭐ ${points}`;
+  document.getElementById('topic').textContent = `${q.area} · ${q.topic} · Pergunta ${idx+1} de ${current.length}`;
+  document.getElementById('question').textContent = q.q;
+  const opts=document.getElementById('options'); opts.innerHTML='';
+  q.opts.forEach((o,i)=> {
+    const b=document.createElement('button');
+    b.className='btn option';
+    b.textContent=o;
+    b.onclick=()=>selectOption(i,b);
+    opts.appendChild(b);
+  });
+  document.getElementById('feedback').className='feedback';
+  document.getElementById('feedback').textContent='';
+  document.getElementById('checkBtn').style.display='inline-block';
+  document.getElementById('nextBtn').style.display='none';
+}
+
+function selectOption(i,b) {
+  if(locked) return;
+  selected=i;
+  [...document.querySelectorAll('.option')].forEach(x=>x.classList.remove('selected'));
+  b.classList.add('selected');
+}
+
+function checkAnswer() {
+  if(selected===null) { alert('Escolha uma resposta primeiro.'); return; }
+  locked=true;
+  const q=current[idx];
+  const buttons=[...document.querySelectorAll('.option')];
+  buttons.forEach((b,i)=> {
+    if(i===q.a) b.classList.add('correct');
+    if(i===selected && i!==q.a) b.classList.add('wrong');
+  });
+  const fb=document.getElementById('feedback');
+  if(selected===q.a) {
+    points += 10;
+    fb.className='feedback good';
+    fb.textContent='Muito bem! ' + q.exp;
+  } else {
+    lives -= 1;
+    mistakes.push(q);
+    fb.className='feedback bad';
+    fb.textContent='Quase! Resposta certa: ' + q.opts[q.a] + '. ' + q.exp;
+  }
+  document.getElementById('hearts').textContent = '❤️'.repeat(lives) + '🤍'.repeat(Math.max(0,3-lives));
+  document.getElementById('score').textContent = `⭐ ${points}`;
+  document.getElementById('checkBtn').style.display='none';
+  document.getElementById('nextBtn').style.display='inline-block';
+}
+
+function nextQuestion() {
+  if(lives<=0) return finish(false);
+  idx++;
+  if(idx>=current.length) return finish(true);
+  renderQ();
+}
+
+function finish(completed) {
+  hideAll(); document.getElementById('end').classList.remove('hidden');
+  const total=current.length*10, pct=Math.round((points/total)*100);
+  document.getElementById('endTitle').textContent = pct>=80 ? '🏆 Missão cumprida!' : (completed ? '⭐ Boa tentativa!' : '💪 Sem vidas, mas dá para treinar!');
+  document.getElementById('endScore').textContent = `Resultado: ${points}/${total} pontos (${pct}%)`;
+  document.getElementById('endMsg').textContent = pct>=80 ? 'Excelente! Agora faça só uma revisão leve dos cards.' : 'Vale refazer. Leia a revisão dos erros antes de tentar de novo.';
+  const weak=document.getElementById('weakTopics');
+  if(mistakes.length) {
+    const counts={};
+    mistakes.forEach(m=>counts[m.topic]=(counts[m.topic]||0)+1);
+    weak.innerHTML='<h2>Assuntos para revisar</h2>' + Object.entries(counts).sort((a,b)=>b[1]-a[1]).map(([t,c])=>`<span class="pill">${t} · ${c} erro(s)</span>`).join('');
+  } else weak.innerHTML='';
+  const review=document.getElementById('review');
+  if(mistakes.length===0) {
+    review.innerHTML='<div class="card"><h2>Sem erros! 🎉</h2><p>Ótimo domínio do conteúdo.</p></div>';
+  } else {
+    review.innerHTML='<h2>Revisão dos erros</h2>' + mistakes.map(m=>`<div class="card reviewItem"><b>${m.q}</b><p>Resposta certa: <b>${m.opts[m.a]}</b></p><p>${m.exp}</p></div>`).join('');
+  }
+  window.scrollTo(0,0);
+}
+goHome();
+</script>
+</body>
+</html>
