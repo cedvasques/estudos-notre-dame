@@ -3,19 +3,31 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>Missão CH da Maria — História e Geografia</title>
+<title>Ferramenta de Estudo — Prova de Ciências Humanas</title>
 <style>
 :root {
-  --bg:#eef7ff; --card:#ffffff; --ink:#1f2937; --muted:#64748b; --brand:#58cc02; --brandDark:#46a302;
-  --blue:#1cb0f6; --blueDark:#0d8acc; --red:#ff4b4b; --green:#16a34a; --line:#dbeafe; --yellow:#ffc800;
-  --purple:#8b5cf6; --orange:#f97316;
+  --bg:#f6fbff; --card:#ffffff; --ink:#1e293b; --muted:#64748b; --brand:#0f766e; --brandDark:#115e59;
+  --blue:#2563eb; --blueDark:#1d4ed8; --red:#dc2626; --green:#16a34a; --line:#dbeafe; --yellow:#f59e0b;
+  --purple:#6d28d9; --orange:#ea580c; --gold:#c8a24a; --radius:8px;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:linear-gradient(180deg,#dff4ff,#f8fafc 45%);color:var(--ink)}
-.app{max-width:980px;margin:0 auto;padding:18px}
-.hero,.card{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:18px;box-shadow:0 12px 28px rgba(15,23,42,.08)}
-.hero{padding:22px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:linear-gradient(180deg,#e8f6ff 0%,#fff7e8 42%,#f8fafc 100%);color:var(--ink);min-height:100vh;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 12% 18%,rgba(37,99,235,.10),transparent 24%),radial-gradient(circle at 82% 8%,rgba(245,158,11,.14),transparent 20%),radial-gradient(circle at 74% 78%,rgba(15,118,110,.11),transparent 24%);pointer-events:none;z-index:0}
+.animal-field{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;opacity:.78}
+.animal-field span{position:absolute;font-size:clamp(20px,2.4vw,34px);filter:drop-shadow(0 4px 8px rgba(15,23,42,.10));animation:floatAnimal 10s ease-in-out infinite;transform:translate3d(0,0,0)}
+.animal-field span:nth-child(1){left:3%;top:7%;animation-delay:-1s}.animal-field span:nth-child(2){left:14%;top:18%;animation-delay:-6s}.animal-field span:nth-child(3){left:27%;top:5%;animation-delay:-3s}.animal-field span:nth-child(4){left:41%;top:15%;animation-delay:-8s}.animal-field span:nth-child(5){left:58%;top:7%;animation-delay:-2s}.animal-field span:nth-child(6){left:74%;top:17%;animation-delay:-7s}.animal-field span:nth-child(7){left:90%;top:8%;animation-delay:-4s}
+.animal-field span:nth-child(8){left:8%;top:34%;animation-delay:-9s}.animal-field span:nth-child(9){left:22%;top:43%;animation-delay:-2s}.animal-field span:nth-child(10){left:36%;top:31%;animation-delay:-5s}.animal-field span:nth-child(11){left:52%;top:39%;animation-delay:-1s}.animal-field span:nth-child(12){left:67%;top:30%;animation-delay:-6s}.animal-field span:nth-child(13){left:84%;top:42%;animation-delay:-3s}
+.animal-field span:nth-child(14){left:4%;top:62%;animation-delay:-5s}.animal-field span:nth-child(15){left:18%;top:72%;animation-delay:-8s}.animal-field span:nth-child(16){left:31%;top:59%;animation-delay:-4s}.animal-field span:nth-child(17){left:47%;top:68%;animation-delay:-7s}.animal-field span:nth-child(18){left:63%;top:58%;animation-delay:-1s}.animal-field span:nth-child(19){left:78%;top:72%;animation-delay:-9s}.animal-field span:nth-child(20){left:92%;top:60%;animation-delay:-2s}
+.animal-field span:nth-child(21){left:10%;top:90%;animation-delay:-3s}.animal-field span:nth-child(22){left:29%;top:85%;animation-delay:-6s}.animal-field span:nth-child(23){left:49%;top:92%;animation-delay:-8s}.animal-field span:nth-child(24){left:69%;top:86%;animation-delay:-4s}.animal-field span:nth-child(25){left:88%;top:91%;animation-delay:-7s}
+@keyframes floatAnimal{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-18px) rotate(5deg)}}
+.app{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:18px}
+.hero,.card{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:0 12px 28px rgba(15,23,42,.08);backdrop-filter:blur(4px)}
+.hero{padding:22px;border-top:5px solid var(--gold)}
+.schoolHeader{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:18px}
+.schoolLogo{width:150px;height:auto;display:block}
+.schoolMeta{text-align:right;color:var(--muted);font-weight:800}
+.eyebrow{font-size:13px;font-weight:900;color:var(--brand);text-transform:uppercase;letter-spacing:0;margin:0 0 8px}
 h1{margin:0 0 8px;font-size:34px;line-height:1.05}
 h2{margin:8px 0 10px;font-size:24px}
 h3{margin:8px 0 6px}
@@ -26,7 +38,7 @@ p{line-height:1.38;margin:8px 0}
 .badge.blue{background:#dbeafe;color:#1e40af} .badge.yellow{background:#fef3c7;color:#92400e} .badge.purple{background:#ede9fe;color:#5b21b6}
 .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}
-.btn{border:0;border-radius:18px;padding:15px 18px;font-size:17px;font-weight:950;background:var(--brand);color:white;box-shadow:0 5px 0 var(--brandDark);cursor:pointer;touch-action:manipulation;user-select:none}
+.btn{border:0;border-radius:14px;padding:15px 18px;font-size:17px;font-weight:950;background:var(--brand);color:white;box-shadow:0 5px 0 var(--brandDark);cursor:pointer;touch-action:manipulation;user-select:none}
 .btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--brandDark)}
 .btn.secondary{background:var(--blue);box-shadow:0 5px 0 var(--blueDark)}
 .btn.gray{background:#64748b;box-shadow:0 5px 0 #334155}
@@ -35,7 +47,7 @@ p{line-height:1.38;margin:8px 0}
 .btn.red{background:var(--red);box-shadow:0 5px 0 #b91c1c}
 .lesson{min-height:178px;position:relative;overflow:hidden}
 .lesson .emoji{font-size:42px}
-.lesson .area{font-weight:900;color:#0f766e;font-size:13px;text-transform:uppercase;letter-spacing:.06em}
+.lesson .area{font-weight:900;color:#0f766e;font-size:13px;text-transform:uppercase;letter-spacing:0}
 .hidden{display:none!important}
 .topbar{position:sticky;top:0;background:rgba(238,247,255,.96);backdrop-filter:blur(8px);z-index:3;padding:10px 0;margin-bottom:8px}
 .progressOuter{height:16px;background:#dbeafe;border-radius:999px;overflow:hidden;flex:1;min-width:180px}
@@ -62,20 +74,33 @@ p{line-height:1.38;margin:8px 0}
   .app{padding:12px} h1{font-size:29px} h2{font-size:22px}
   .btn{font-size:16px;padding:14px 15px} .homeButtons .btn{width:100%}
   .topbar .btn.gray{padding:10px 12px;border-radius:14px}
+  .schoolHeader{align-items:flex-start;gap:10px}.schoolLogo{width:118px}.schoolMeta{text-align:left;font-size:13px}
 }
 </style>
 </head>
 <body>
+<div class="animal-field" aria-hidden="true">
+  <span>🦉</span><span>🐢</span><span>🦋</span><span>🐧</span><span>🦜</span><span>🐳</span><span>🐞</span>
+  <span>🐘</span><span>🦒</span><span>🐿️</span><span>🐠</span><span>🦊</span><span>🐙</span>
+  <span>🐝</span><span>🐬</span><span>🦁</span><span>🐥</span><span>🐌</span><span>🐼</span><span>🦩</span>
+  <span>🐛</span><span>🐨</span><span>🐟</span><span>🦔</span><span>🦚</span>
+</div>
 <div class="app">
   <section class="hero" id="home">
-    <h1>🏆 Missão CH da Maria</h1>
-    <p class="big">Revisão gamificada baseada nas páginas do ZIP da prova.</p>
+    <div class="schoolHeader">
+      <img class="schoolLogo" src="assets/notre-dame-campinas-logo.png" alt="Colégio Notre Dame Campinas">
+      <div class="schoolMeta">Prof.ª Miriam<br>Ciências Humanas</div>
+    </div>
+    <p class="eyebrow">Ferramenta de estudo para prova</p>
+    <h1>Ciências Humanas</h1>
+    <p class="big">Revisão gamificada para consolidar os conteúdos trabalhados em aula.</p>
+    <p>Ferramenta de apoio ao estudo para a prova de Ciências Humanas do Colégio Notre Dame Campinas, com referência pedagógica da professora Miriam.</p>
     <p>Conteúdo coberto: patrimônio e memória, patrimônios do Brasil, lugares de memória, nomes de ruas, monumentos, comunidades, paisagens, água, luz solar, ação humana e recursos naturais.</p>
     <div>
-      <span class="badge">❤️ vidas</span>
-      <span class="badge blue">⭐ pontos</span>
-      <span class="badge yellow">🧠 revisão dos erros</span>
-      <span class="badge purple">📱 feito para iPad</span>
+      <span class="badge">Prova de Ciências Humanas</span>
+      <span class="badge blue">História e Geografia</span>
+      <span class="badge yellow">Revisão dos erros</span>
+      <span class="badge purple">Treino em formato de simulado</span>
     </div>
     <div class="grid homeButtons">
       <div class="card modeCard" onclick="showLessons()"><div class="kpi">📚</div><h2>Estudar</h2><p>Cards curtos com o conteúdo principal.</p></div>
@@ -138,7 +163,7 @@ p{line-height:1.38;margin:8px 0}
     </div>
   </section>
 
-  <div class="footer">Arquivo único HTML. Funciona offline depois de baixado.</div>
+  <div class="footer">Ferramenta de estudo para revisão de prova de Ciências Humanas · Colégio Notre Dame Campinas · Prof.ª Miriam</div>
 </div>
 
 <script>
