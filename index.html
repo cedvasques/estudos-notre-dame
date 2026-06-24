@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="icon" href="data:,">
 <title>Ferramenta de Estudo — Provas</title>
 <style>
 :root {
@@ -145,7 +146,7 @@ p{line-height:1.38;margin:8px 0}
     <div class="grid" id="lessonGrid"></div>
     <div class="card">
       <h2>Como estudar hoje</h2>
-      <p>Leia os cards em voz alta. Depois faça História, Geografia e, por último, o Simulado Final. Se ficar abaixo de 80%, refaça só os assuntos em que errou.</p>
+      <p id="studyPlanText">Leia os cards em voz alta. Depois faça História, Geografia e, por último, o Simulado Final. Se ficar abaixo de 80%, refaça só os assuntos em que errou.</p>
     </div>
   </section>
 
@@ -217,60 +218,151 @@ const HUMAN_FLASHCARDS = [
 ];
 
 const NATURE_LESSONS = [
-  {"area":"Ciências","title":"Como a ciência investiga","emoji":"🔎","text":"A ciência começa com observação e perguntas. Depois criamos hipóteses, fazemos testes, registramos resultados e comparamos as conclusões."},
-  {"area":"Seres vivos","title":"Características dos seres vivos","emoji":"🌱","text":"Seres vivos nascem, crescem, podem se reproduzir e morrem. Também precisam de condições adequadas, como água, alimento, ar e ambiente favorável."},
-  {"area":"Seres vivos","title":"Plantas","emoji":"🌿","text":"As plantas têm partes importantes, como raiz, caule, folhas, flores e frutos. Muitas produzem seu alimento com luz do Sol, água e gás carbônico."},
-  {"area":"Seres vivos","title":"Animais","emoji":"🐾","text":"Animais podem ser vertebrados, quando têm coluna vertebral, ou invertebrados, quando não têm. Eles também se alimentam, respiram e interagem com o ambiente."},
-  {"area":"Ambiente","title":"Cadeias alimentares","emoji":"🕸️","text":"Na cadeia alimentar, produtores servem de alimento para consumidores. Decompositores ajudam a transformar restos de seres vivos em matéria que volta ao ambiente."},
-  {"area":"Corpo humano","title":"Saúde e hábitos","emoji":"🧼","text":"Boa alimentação, higiene, sono, atividade física e vacinação ajudam o corpo a funcionar melhor e a prevenir doenças."},
-  {"area":"Corpo humano","title":"Órgãos dos sentidos","emoji":"👂","text":"Visão, audição, olfato, paladar e tato ajudam o corpo a perceber informações do ambiente."},
-  {"area":"Materiais","title":"Propriedades dos materiais","emoji":"🧪","text":"Materiais podem ser duros, flexíveis, transparentes, opacos, resistentes, frágeis, permeáveis ou impermeáveis. Essas propriedades ajudam a escolher seu uso."},
-  {"area":"Materiais","title":"Transformações e resíduos","emoji":"♻️","text":"Materiais podem passar por mudanças. Separar lixo, reutilizar e reciclar reduzem desperdício e ajudam a preservar o ambiente."},
-  {"area":"Terra e Universo","title":"Água na natureza","emoji":"💧","text":"A água aparece nos estados líquido, sólido e gasoso. Evaporação, condensação e precipitação fazem parte do ciclo da água."},
-  {"area":"Terra e Universo","title":"Sol, Terra e Lua","emoji":"🌞","text":"O Sol ilumina a Terra. A rotação da Terra explica a alternância entre dia e noite, e a posição da luz pode formar sombras."},
-  {"area":"Ambiente","title":"Preservação ambiental","emoji":"🌎","text":"Cuidar da água, do solo, das plantas e dos animais ajuda a manter equilíbrio nos ambientes e qualidade de vida."}
+  {"area":"Plantas","title":"Partes das plantas","emoji":"🌱","text":"As plantas são formadas por raiz, caule e folhas. Cada parte tem uma função importante para o crescimento e a sobrevivência da planta."},
+  {"area":"Plantas","title":"Raiz, caule e folhas","emoji":"🌿","text":"A raiz fixa a planta no solo e absorve água e nutrientes. O caule distribui alimento, água e nutrientes. As folhas produzem alimento por meio da fotossíntese."},
+  {"area":"Plantas","title":"Flores, frutos e sementes","emoji":"🌸","text":"A maioria das plantas apresenta flores, frutos e sementes. A flor dá origem ao fruto, que contém a semente. A semente carrega o embrião, que pode originar uma nova planta."},
+  {"area":"Plantas","title":"Embrião da semente","emoji":"🫘","text":"O embrião é a fase inicial do desenvolvimento de uma planta ou de um animal. Na semente de feijão cortada ao meio, o embrião mostra estruturas que darão origem às partes da planta."},
+  {"area":"Plantas","title":"Araucária e pinhões","emoji":"🌲","text":"Algumas plantas apresentam sementes, mas não formam flores nem frutos. A araucária é um exemplo; os pinhões são suas sementes."},
+  {"area":"Plantas","title":"Frutos da Amazônia","emoji":"🧺","text":"Açaí, buriti, cupuaçu, cacau e piquiá aparecem no material como frutos. Dentro dos frutos, podem existir sementes."},
+  {"area":"Dispersão","title":"O que é dispersão","emoji":"🍃","text":"Dispersão é o processo pelo qual as sementes são levadas da planta-mãe para outros locais. Isso ajuda as plantas a ocupar novos ambientes e manter a diversidade."},
+  {"area":"Dispersão","title":"Sementes levadas pelo vento","emoji":"🌬️","text":"Sementes leves, com pelos ou formas parecidas com asas, podem ser transportadas pelo vento. O algodãozinho-do-campo, o ipê-amarelo e o dente-de-leão aparecem como exemplos."},
+  {"area":"Dispersão","title":"Sementes levadas pela água","emoji":"💧","text":"Sementes de plantas aquáticas ou costeiras podem flutuar e ser transportadas pela água. O coco pode ser levado pelo mar até praias distantes, onde a semente pode germinar."},
+  {"area":"Dispersão","title":"Frutos que lançam sementes","emoji":"🫛","text":"Algumas plantas, como a pata-de-vaca e a maria-sem-vergonha, apresentam mecanismos que, ao tocar o fruto maduro ou o estourar, lançam as sementes para longe."},
+  {"area":"Dispersão","title":"Animais dispersores","emoji":"🐦","text":"Muitos frutos atraem animais por serem saborosos. Depois de comer os frutos, os animais podem eliminar as sementes em outros lugares, contribuindo para a dispersão."},
+  {"area":"Dispersão","title":"Aves frugívoras","emoji":"🦜","text":"Tucanos, jacus e mutuns estão entre as aves frugívoras citadas. Elas comem frutos e ajudam a espalhar sementes pelas florestas."},
+  {"area":"Dispersão","title":"Cores dos frutos","emoji":"🍒","text":"As plantas podem produzir frutos com cores chamativas, como amarelo, laranja e vermelho. Essas cores indicam frutos maduros e prontos para serem comidos."},
+  {"area":"Dispersão","title":"Sementes grudadas e enterradas","emoji":"🐾","text":"Algumas sementes têm ganchos que grudam nos pelos dos animais, como a bardana. Cutias podem enterrar sementes para comer depois; muitas acabam germinando."},
+  {"area":"Germinação","title":"O que é germinação","emoji":"🌱","text":"Depois que a semente se dispersa e cai no solo, pode ocorrer a germinação. Nela, o embrião cresce e se desenvolve até se tornar uma nova planta."},
+  {"area":"Germinação","title":"Etapas da germinação","emoji":"🫘","text":"Na germinação do feijão, aparecem a primeira raiz, o primeiro caule e a primeira folha. Depois a planta continua crescendo, com caule, folhas e raiz."},
+  {"area":"Germinação","title":"Condições para germinar","emoji":"💦","text":"Para a germinação ocorrer, são necessárias condições ambientais. A semente absorve bastante água e precisa de gás oxigênio para respirar."},
+  {"area":"Germinação","title":"Luz e escuro","emoji":"🌗","text":"A luz pode ser importante para algumas sementes. Outras sementes germinam apenas no escuro, ou seja, quando estão enterradas no solo."},
+  {"area":"Germinação","title":"Ciclo de vida da planta","emoji":"🔁","text":"Ao germinar, a semente dá origem a uma nova planta. Com o tempo, essa planta pode produzir flores, formar frutos com novas sementes e reiniciar o ciclo."},
+  {"area":"Germinação","title":"Experimento dos copos","emoji":"🧪","text":"No experimento do material, sementes da mesma planta foram colocadas em algodão. As sementes dos copos 1 e 3 germinaram porque receberam água; isso mostra a importância da água."},
+  {"area":"Solo","title":"O que é o solo","emoji":"🟫","text":"O solo é a camada mais superficial da Terra. Chão de terra, areia e barro são superfícies naturais que pisamos e têm características próprias, como cor e textura."},
+  {"area":"Solo","title":"Importância do solo","emoji":"🥕","text":"O solo é essencial para a vida. Nele, as plantas fixam suas raízes e absorvem água e nutrientes. Muitas plantas servem de alimento para pessoas e animais."},
+  {"area":"Solo","title":"Solo como abrigo","emoji":"🐜","text":"O solo abriga seres vivos, como minhocas e formigas, e microrganismos invisíveis a olho nu, como bactérias."},
+  {"area":"Solo","title":"Solo e atividades humanas","emoji":"🏙️","text":"Do solo são extraídas matérias-primas usadas em objetos, combustíveis e construção civil. Sobre o solo, as pessoas constroem casas, escolas, hospitais, fábricas e estradas."},
+  {"area":"Solo","title":"Solo nas cidades","emoji":"🌧️","text":"Quando ruas e calçadas ficam cobertas por asfalto e cimento, a água da chuva tem dificuldade para penetrar no solo. Isso pode causar acúmulo de água e enchentes."},
+  {"area":"Solo","title":"Como o solo se forma","emoji":"⛰️","text":"A formação do solo é lenta e contínua. Ela acontece pelo desgaste das rochas ao longo de milhares de anos, com ação do vento, da luz solar, da água, da temperatura e dos seres vivos."},
+  {"area":"Solo","title":"Componentes do solo","emoji":"🔬","text":"O solo é constituído de minerais, materiais orgânicos, ar e água. Esses componentes são essenciais para a vida na Terra."},
+  {"area":"Solo","title":"Textura do solo","emoji":"🪨","text":"A textura depende do tamanho das partículas minerais. Areia tem partículas maiores, silte é intermediário e argila tem partículas muito pequenas."},
+  {"area":"Solo","title":"Tipos de solo pela textura","emoji":"🧱","text":"Quando há mais areia, o solo é arenoso. Com mais silte, é siltoso. Quando a argila é o principal componente, o solo é argiloso."},
+  {"area":"Solo","title":"Solo humoso e cor","emoji":"🌰","text":"Quando o solo tem muita matéria orgânica, é chamado de humoso. Solos com muita matéria orgânica costumam ser mais escuros; solos ricos em minerais como ferro podem ser alaranjados ou amarelados."},
+  {"area":"Solo","title":"Porosidade e permeabilidade","emoji":"💧","text":"Porosidade é a quantidade de espaços entre as partículas do solo. Quanto mais poros, maior a passagem de água e ar. Essa passagem é chamada de permeabilidade."},
+  {"area":"Solo","title":"Arenoso, argiloso e compactado","emoji":"👣","text":"O solo arenoso é bastante permeável e não retém água. O solo argiloso retém água e é pouco permeável. Solo compactado tem poucos espaços, dificultando a passagem de ar e água."}
 ];
 
 const NATURE_FLASHCARDS = [
-  ['O que é uma hipótese?', 'Uma explicação possível para uma pergunta, que ainda precisa ser testada.'],
-  ['Quais são características dos seres vivos?', 'Nascem, crescem, podem se reproduzir, morrem e precisam de condições para viver.'],
-  ['Para que serve a raiz?', 'Ajuda a fixar a planta no solo e absorver água e sais minerais.'],
-  ['O que são animais vertebrados?', 'Animais que têm coluna vertebral, como peixes, aves, répteis, anfíbios e mamíferos.'],
-  ['O que é cadeia alimentar?', 'Relação de alimentação entre seres vivos de um ambiente.'],
-  ['O que são produtores?', 'Seres vivos, como plantas, que produzem seu próprio alimento.'],
-  ['Quais são os cinco sentidos?', 'Visão, audição, olfato, paladar e tato.'],
-  ['O que é material impermeável?', 'Material que não deixa a água passar com facilidade.'],
-  ['Quais são os estados físicos da água?', 'Líquido, sólido e gasoso.'],
-  ['O que é evaporação?', 'Passagem da água líquida para vapor.'],
-  ['Por que existe dia e noite?', 'Porque a Terra gira em torno de si mesma.'],
-  ['Como preservar o ambiente?', 'Economizando água, reduzindo lixo, reciclando e respeitando os seres vivos.']
+  ['Quais partes aparecem como principais nas plantas?', 'Raiz, caule e folhas. O material também mostra flores, frutos e sementes em muitas plantas.'],
+  ['Qual é a função da raiz?', 'Fixar a planta no solo e absorver água e nutrientes.'],
+  ['Qual é a função do caule?', 'Distribuir alimento, água e nutrientes pela planta.'],
+  ['Qual é a função das folhas?', 'Produzir alimento para a planta por meio da fotossíntese.'],
+  ['Qual estrutura dá origem ao fruto?', 'A flor dá origem ao fruto.'],
+  ['O que existe dentro do fruto?', 'O fruto contém sementes.'],
+  ['O que a semente carrega?', 'A semente carrega o embrião, que pode dar origem a uma nova planta.'],
+  ['O que são os pinhões da araucária?', 'São as sementes da araucária.'],
+  ['O que é dispersão de sementes?', 'É o transporte das sementes da planta-mãe para outros locais.'],
+  ['Como o vento ajuda na dispersão?', 'Transportando sementes leves, com pelos ou estruturas parecidas com asas.'],
+  ['Como a água ajuda na dispersão?', 'Levando sementes que flutuam, como o coco, para outros lugares.'],
+  ['Como os animais dispersam sementes?', 'Comendo frutos e eliminando sementes em outros locais, ou carregando sementes presas aos pelos.'],
+  ['Por que frutos coloridos ajudam na dispersão?', 'Porque cores chamativas indicam frutos maduros e atraem animais.'],
+  ['Por que as cutias são dispersoras importantes?', 'Porque enterram sementes e muitas delas acabam germinando.'],
+  ['O que é germinação?', 'É quando o embrião da semente cresce e se desenvolve até virar uma nova planta.'],
+  ['Quais partes aparecem primeiro na germinação do feijão?', 'Primeira raiz, primeiro caule e primeira folha.'],
+  ['Quais condições aparecem como importantes para a germinação?', 'Água, gás oxigênio e condições ambientais adequadas; algumas sementes precisam de luz e outras de escuro.'],
+  ['O que o experimento dos copos mostrou?', 'Que as sementes que receberam água germinaram; a água é necessária para germinar.'],
+  ['O que é o solo?', 'A camada mais superficial da Terra, como terra, areia e barro.'],
+  ['Por que o solo é importante para as plantas?', 'Porque as plantas fixam raízes nele e absorvem água e nutrientes.'],
+  ['Quais componentes formam o solo?', 'Minerais, materiais orgânicos, ar e água.'],
+  ['Como o solo se forma?', 'Pelo desgaste lento das rochas e pela ação de água, vento, sol, temperatura e seres vivos.'],
+  ['O que é textura do solo?', 'Característica ligada ao tamanho das partículas: areia, silte e argila.'],
+  ['O que é porosidade?', 'A quantidade de espaços entre as partículas do solo.'],
+  ['O que é permeabilidade?', 'A capacidade do solo de permitir a passagem de água.'],
+  ['Como é o solo arenoso?', 'Tem partículas maiores, é bastante permeável e não retém água.'],
+  ['Como é o solo argiloso?', 'Tem partículas pequenas, retém água e é pouco permeável.'],
+  ['Por que asfalto e cimento favorecem enchentes?', 'Porque dificultam a entrada da água da chuva no solo, fazendo a água se acumular.']
 ];
 
 const NATURE_QUESTIONS = [
-  {"area":"Ciências","topic":"Investigação científica","q":"Qual sequência combina melhor com uma investigação científica?","opts":["Observar, perguntar, levantar hipótese, testar e registrar","Copiar uma resposta sem observar","Escolher uma resposta ao acaso","Evitar qualquer teste"],"a":0,"exp":"Investigar envolve observar, formular perguntas, testar ideias e registrar resultados."},
-  {"area":"Ciências","topic":"Investigação científica","q":"O que é uma hipótese?","opts":["Uma explicação possível que pode ser testada","Um resultado que nunca muda","Um desenho sem relação com a pergunta","Uma regra para não observar"],"a":0,"exp":"Hipótese é uma explicação inicial que precisa ser verificada."},
-  {"area":"Seres vivos","topic":"Características dos seres vivos","q":"Qual alternativa apresenta características de seres vivos?","opts":["Nascem, crescem, podem se reproduzir e morrem","Nunca precisam de água nem alimento","São sempre feitos de metal","Não mudam em nenhuma fase da vida"],"a":0,"exp":"Seres vivos têm ciclo de vida e necessidades para sobreviver."},
-  {"area":"Seres vivos","topic":"Características dos seres vivos","q":"Qual item não é um ser vivo?","opts":["Cachorro","Planta","Pedra","Fungo"],"a":2,"exp":"A pedra não nasce, não cresce como organismo, não se reproduz e não morre."},
-  {"area":"Seres vivos","topic":"Plantas","q":"A raiz da planta ajuda principalmente a...","opts":["fixar a planta e absorver água e sais minerais","produzir sons","enxergar o ambiente","carregar filhotes"],"a":0,"exp":"A raiz fixa a planta e absorve recursos do solo."},
-  {"area":"Seres vivos","topic":"Plantas","q":"As folhas são importantes porque...","opts":["participam da produção de alimento da planta","são sempre pedras","servem apenas para enfeitar","impedem toda entrada de luz"],"a":0,"exp":"Nas folhas ocorre grande parte da produção de alimento da planta."},
-  {"area":"Seres vivos","topic":"Animais","q":"Animais vertebrados são aqueles que...","opts":["têm coluna vertebral","não respiram","são sempre insetos","não se alimentam"],"a":0,"exp":"Vertebrados possuem coluna vertebral."},
-  {"area":"Seres vivos","topic":"Animais","q":"Qual exemplo é de animal invertebrado?","opts":["Borboleta","Cachorro","Peixe","Pássaro"],"a":0,"exp":"Borboletas são insetos e não têm coluna vertebral."},
-  {"area":"Ambiente","topic":"Cadeias alimentares","q":"Em uma cadeia alimentar, as plantas geralmente são...","opts":["produtoras","consumidoras carnívoras","decompositoras obrigatórias","minerais sem vida"],"a":0,"exp":"Plantas produzem seu próprio alimento e sustentam outras etapas da cadeia."},
-  {"area":"Ambiente","topic":"Cadeias alimentares","q":"Decompositores são importantes porque...","opts":["transformam restos de seres vivos e devolvem matéria ao ambiente","impedem a reciclagem natural","são sempre monumentos","não participam dos ambientes"],"a":0,"exp":"Fungos e bactérias, por exemplo, atuam na decomposição."},
-  {"area":"Corpo humano","topic":"Saúde","q":"Qual hábito ajuda a manter a saúde?","opts":["Dormir bem e manter boa higiene","Nunca beber água","Comer somente doces","Evitar lavar as mãos"],"a":0,"exp":"Sono, higiene, alimentação e hidratação ajudam o corpo."},
-  {"area":"Corpo humano","topic":"Saúde","q":"Lavar as mãos antes das refeições ajuda a...","opts":["reduzir microrganismos e prevenir doenças","aumentar a sujeira","parar a digestão","trocar a cor dos alimentos"],"a":0,"exp":"A higiene das mãos reduz o contato com microrganismos."},
-  {"area":"Corpo humano","topic":"Sentidos","q":"Qual sentido usamos principalmente para perceber sons?","opts":["Audição","Paladar","Olfato","Tato"],"a":0,"exp":"A audição permite perceber sons."},
-  {"area":"Corpo humano","topic":"Sentidos","q":"O tato ajuda a perceber...","opts":["textura, temperatura e pressão","somente cores distantes","apenas cheiros","somente sabores"],"a":0,"exp":"O tato está ligado a sensações na pele."},
-  {"area":"Materiais","topic":"Propriedades dos materiais","q":"Um material transparente é aquele que...","opts":["permite ver através dele","não deixa nenhuma luz passar","sempre se quebra com água","é sempre comestível"],"a":0,"exp":"Vidro limpo é um exemplo comum de material transparente."},
-  {"area":"Materiais","topic":"Propriedades dos materiais","q":"Um guarda-chuva deve ser feito com material principalmente...","opts":["impermeável","comestível","muito permeável","invisível"],"a":0,"exp":"Material impermeável dificulta a passagem da água."},
-  {"area":"Materiais","topic":"Resíduos","q":"Reciclar é importante porque...","opts":["reduz desperdício e pode transformar materiais em novos produtos","aumenta lixo sem necessidade","destrói todos os materiais","impede qualquer reutilização"],"a":0,"exp":"A reciclagem ajuda a diminuir impactos ambientais."},
-  {"area":"Terra e Universo","topic":"Água","q":"Quais são estados físicos da água?","opts":["Sólido, líquido e gasoso","Claro, escuro e colorido","Grande, pequeno e médio","Vivo, morto e mineral"],"a":0,"exp":"A água pode aparecer como gelo, líquido ou vapor."},
-  {"area":"Terra e Universo","topic":"Água","q":"Evaporação é a passagem da água...","opts":["líquida para vapor","gasosa para gelo direto sempre","sólida para pedra","viva para não viva"],"a":0,"exp":"Quando a água aquece, pode passar para o estado gasoso."},
-  {"area":"Terra e Universo","topic":"Água","q":"A chuva no ciclo da água é chamada de...","opts":["precipitação","fotossíntese","decomposição","transparência"],"a":0,"exp":"Precipitação é a queda de água da atmosfera, como chuva."},
-  {"area":"Terra e Universo","topic":"Sol, Terra e Lua","q":"A alternância entre dia e noite acontece por causa...","opts":["da rotação da Terra","da reciclagem do plástico","do crescimento das raízes","da audição"],"a":0,"exp":"A Terra gira em torno de si mesma, gerando dia e noite."},
-  {"area":"Terra e Universo","topic":"Sol, Terra e Lua","q":"Uma sombra se forma quando...","opts":["um objeto bloqueia a passagem da luz","não existe nenhuma fonte de luz","a água evapora","uma planta absorve sais minerais"],"a":0,"exp":"A sombra aparece atrás de um objeto que bloqueia a luz."},
-  {"area":"Ambiente","topic":"Preservação","q":"Qual atitude ajuda a preservar o ambiente?","opts":["Economizar água e separar resíduos","Jogar lixo nos rios","Desperdiçar alimentos todos os dias","Arrancar plantas sem necessidade"],"a":0,"exp":"Economia de recursos e descarte correto ajudam o ambiente."},
-  {"area":"Misto","topic":"Revisão geral","q":"Qual combinação está correta?","opts":["Planta: produtora; vidro limpo: transparente; chuva: precipitação","Pedra: ser vivo; inseto: vertebrado; água: apenas sólida","Raiz: audição; ouvido: absorção de água; Sol: reciclagem","Sombra: alimento; decompositor: coluna vertebral; tato: chuva"],"a":0,"exp":"A primeira combinação reúne conceitos corretos de seres vivos, materiais e ciclo da água."}
+  {"area":"Plantas","topic":"Partes das plantas","q":"Quais são as três partes das plantas destacadas no material?","opts":["Raiz, caule e folhas","Areia, silte e argila","Água, ar e asfalto","Fruto, barro e cimento"],"a":0,"exp":"O capítulo apresenta raiz, caule e folhas como partes das plantas."},
+  {"area":"Plantas","topic":"Partes das plantas","q":"A raiz da planta tem como função principal...","opts":["fixar a planta no solo e absorver água e nutrientes","atrair aves com cores chamativas","lançar sementes para longe","formar ruas e calçadas"],"a":0,"exp":"A raiz prende a planta ao solo e absorve água e nutrientes."},
+  {"area":"Plantas","topic":"Partes das plantas","q":"O caule ajuda a planta porque...","opts":["distribui alimento, água e nutrientes","é sempre uma semente","impede a fotossíntese","transforma barro em areia"],"a":0,"exp":"O caule conduz substâncias importantes pela planta."},
+  {"area":"Plantas","topic":"Partes das plantas","q":"As folhas são responsáveis por...","opts":["produzir alimento para a planta por meio da fotossíntese","enterrar sementes como as cutias","reter toda a água do solo","formar asfalto nas cidades"],"a":0,"exp":"O material explica que as folhas produzem alimento na fotossíntese."},
+  {"area":"Plantas","topic":"Flores, frutos e sementes","q":"Segundo o material, a flor dá origem ao...","opts":["fruto","barro","solo compactado","vento"],"a":0,"exp":"A flor origina o fruto, que contém a semente."},
+  {"area":"Plantas","topic":"Flores, frutos e sementes","q":"O fruto é importante para a reprodução porque ele...","opts":["contém a semente","é sempre feito de pedra","não se relaciona com plantas","substitui a raiz"],"a":0,"exp":"O fruto contém sementes, que podem gerar novas plantas."},
+  {"area":"Plantas","topic":"Embrião","q":"O que a semente carrega dentro dela?","opts":["O embrião, que pode dar origem a uma nova planta","Asfalto, areia e cimento","Apenas folhas adultas prontas","Somente água do mar"],"a":0,"exp":"A semente carrega o embrião, fase inicial do desenvolvimento."},
+  {"area":"Plantas","topic":"Embrião","q":"Na imagem da semente de feijão cortada ao meio, o embrião indica...","opts":["estruturas que darão origem às partes da planta","uma pedra sem vida","um tipo de solo compactado","um animal frugívoro"],"a":0,"exp":"O embrião se desenvolverá e formará partes da nova planta."},
+  {"area":"Plantas","topic":"Araucária","q":"A araucária é citada como exemplo de planta que...","opts":["apresenta sementes, mas não forma flores nem frutos","não tem sementes","vive somente no mar","é formada por asfalto"],"a":0,"exp":"O material informa que a araucária tem sementes e não forma flores nem frutos."},
+  {"area":"Plantas","topic":"Araucária","q":"Os pinhões são...","opts":["sementes da araucária","flores do dente-de-leão","raízes do cupuaçu","frutos do solo"],"a":0,"exp":"O texto destaca que os pinhões são as sementes da araucária."},
+  {"area":"Plantas","topic":"Frutos da Amazônia","q":"Qual alternativa traz apenas frutos mostrados no material da Amazônia?","opts":["Açaí, buriti, cupuaçu e cacau","Silte, argila, areia e barro","Raiz, caule, folha e solo","Asfalto, cimento, ar e água"],"a":0,"exp":"Açaí, buriti, cupuaçu e cacau aparecem nas páginas da unidade."},
+  {"area":"Plantas","topic":"Frutos da Amazônia","q":"Quando o material pergunta o que existe dentro de frutos como cacau, cupuaçu e buriti, a resposta esperada se relaciona a...","opts":["sementes","asfalto","penas de aves","camadas do solo"],"a":0,"exp":"O conteúdo da unidade liga frutos e sementes."},
+
+  {"area":"Dispersão","topic":"Conceito de dispersão","q":"O que é dispersão das sementes?","opts":["Transporte das sementes da planta-mãe para outros locais","Produção de asfalto nas ruas","Transformação de água em vapor","Retirada de ferro do solo"],"a":0,"exp":"Dispersão é o processo de levar sementes para longe da planta-mãe."},
+  {"area":"Dispersão","topic":"Importância da dispersão","q":"A dispersão é importante porque permite que as plantas...","opts":["ocupem novos ambientes e mantenham a diversidade","parem de formar sementes","deixem de precisar de solo","virem solo compactado"],"a":0,"exp":"O material explica que a dispersão ajuda as plantas a ocupar novos ambientes."},
+  {"area":"Dispersão","topic":"Vento","q":"Sementes com estruturas leves, pelos ou formas que lembram asas podem ser levadas...","opts":["pelo vento","pelo asfalto","pela argila microscópica","pela falta de água"],"a":0,"exp":"Essas estruturas facilitam o transporte pelo vento."},
+  {"area":"Dispersão","topic":"Vento","q":"O fruto do algodãozinho-do-campo libera sementes com projeções finas que facilitam a dispersão...","opts":["pelo vento","pela construção civil","pelas raízes do solo","pela falta de ar"],"a":0,"exp":"As projeções finas ajudam o vento a carregar as sementes."},
+  {"area":"Dispersão","topic":"Vento","q":"A semente de ipê-amarelo aparece como exemplo de semente que provavelmente se dispersa...","opts":["pelo vento","por enchente urbana","por cimento","por compactação"],"a":0,"exp":"Sua forma facilita o transporte pelo vento."},
+  {"area":"Dispersão","topic":"Água","q":"Sementes de plantas aquáticas ou costeiras podem ser transportadas...","opts":["pela água","por microscópio","por silte","por folhas adultas"],"a":0,"exp":"O material mostra sementes que flutuam e podem ser levadas pela água."},
+  {"area":"Dispersão","topic":"Água","q":"O coco pode ser levado pela água do mar até praias distantes. Isso é exemplo de...","opts":["dispersão pela água","germinação no escuro","solo humoso","fotossíntese"],"a":0,"exp":"A água transporta o coco para outro local, onde a semente pode germinar."},
+  {"area":"Dispersão","topic":"Frutos que lançam sementes","q":"A pata-de-vaca e a maria-sem-vergonha aparecem no material porque seus frutos podem...","opts":["estourar ou lançar sementes para longe","formar asfalto","reter toda a água do solo","virar matéria mineral imediatamente"],"a":0,"exp":"Essas plantas têm mecanismos que favorecem o lançamento das sementes."},
+  {"area":"Dispersão","topic":"Animais","q":"Como muitos animais contribuem para a dispersão de sementes?","opts":["Comem frutos e depois eliminam sementes em outros locais","Transformam sementes em asfalto","Impedem qualquer germinação","Retiram todos os poros do solo"],"a":0,"exp":"Após comer frutos, os animais podem espalhar sementes pelas fezes."},
+  {"area":"Dispersão","topic":"Animais","q":"Algumas sementes grudam nos pelos dos animais porque possuem...","opts":["pequenos ganchos","asfalto e cimento","raiz e caule adultos","água salgada"],"a":0,"exp":"A bardana tem pequenos ganchos que se prendem aos pelos."},
+  {"area":"Dispersão","topic":"Cutias","q":"Por que as cutias são consideradas importantes dispersoras de sementes?","opts":["Porque enterram sementes e muitas acabam germinando","Porque constroem hospitais no solo","Porque impedem a formação de frutos","Porque transformam argila em areia"],"a":0,"exp":"Ao enterrar sementes para comer depois, muitas ficam no ambiente e germinam."},
+  {"area":"Dispersão","topic":"Aves frugívoras","q":"Aves frugívoras são aves que se alimentam principalmente de...","opts":["frutos","asfalto","argila","raízes de concreto"],"a":0,"exp":"Frugívoros são animais que gostam de comer frutos."},
+  {"area":"Dispersão","topic":"Aves frugívoras","q":"Tucanos, jacus e mutuns aparecem no material como aves que ajudam a...","opts":["dispersar sementes","compactar o solo","formar cimento","impedir a vida nas florestas"],"a":0,"exp":"Essas aves comem frutos e podem espalhar sementes."},
+  {"area":"Dispersão","topic":"Cores dos frutos","q":"Por que algumas plantas produzem frutos amarelos, laranjas ou vermelhos?","opts":["Para chamar a atenção de animais quando os frutos estão maduros","Para impedir que qualquer animal os veja","Para transformar frutos em solo","Para secar a semente antes da germinação"],"a":0,"exp":"Cores chamativas ajudam a indicar frutos maduros e atraem animais."},
+  {"area":"Dispersão","topic":"Preservação das aves","q":"Proteger aves dispersoras pode ajudar áreas desmatadas porque elas...","opts":["espalham sementes que podem originar novas plantas","retiram todos os nutrientes do solo","impedem a germinação","cobrem tudo com cimento"],"a":0,"exp":"As aves ajudam na recuperação ao levar sementes para diferentes locais."},
+
+  {"area":"Germinação","topic":"Conceito de germinação","q":"O que é germinação?","opts":["Processo em que o embrião da semente cresce até formar nova planta","Transporte da semente pelo vento","Construção de ruas sobre o solo","Separação de areia, silte e argila"],"a":0,"exp":"Na germinação, o embrião se desenvolve e origina uma nova planta."},
+  {"area":"Germinação","topic":"Etapas da germinação","q":"Na germinação do feijão, qual parte aparece primeiro segundo o esquema?","opts":["Primeira raiz","Primeira flor","Primeiro fruto maduro","Primeira ave"],"a":0,"exp":"O esquema mostra a primeira raiz como uma das primeiras estruturas."},
+  {"area":"Germinação","topic":"Etapas da germinação","q":"Depois da primeira raiz, o esquema de germinação mostra o desenvolvimento de...","opts":["primeiro caule e primeira folha","asfalto e cimento","tucano e jacu","areia e argila"],"a":0,"exp":"O material mostra primeiro caule e primeira folha durante a germinação."},
+  {"area":"Germinação","topic":"Condições ambientais","q":"Para germinar, a semente precisa absorver bastante...","opts":["água","cimento","asfalto","ferro"],"a":0,"exp":"A água tem papel fundamental no processo de germinação."},
+  {"area":"Germinação","topic":"Condições ambientais","q":"Além de água, as sementes precisam de gás oxigênio para...","opts":["respirar","virar fruto colorido imediatamente","formar solo compactado","grudar no pelo dos animais"],"a":0,"exp":"O material afirma que as sementes precisam de gás oxigênio para respirar."},
+  {"area":"Germinação","topic":"Luz e escuro","q":"Sobre a luz na germinação, o material explica que...","opts":["algumas sementes precisam de luz e outras germinam no escuro","todas as sementes germinam somente com luz forte","nenhuma semente pode germinar enterrada","a luz sempre substitui a água"],"a":0,"exp":"O texto mostra que a necessidade de luz varia entre sementes."},
+  {"area":"Germinação","topic":"Ciclo de vida","q":"Depois de crescer, uma planta pode produzir flores que formarão...","opts":["frutos com novas sementes","asfalto com novos poros","argila sem água","aves sem frutos"],"a":0,"exp":"Flores podem formar frutos, e os frutos contêm novas sementes."},
+  {"area":"Germinação","topic":"Ciclo de vida","q":"A sequência correta do ciclo estudado é...","opts":["semente germina, planta cresce, produz flores, forma frutos com sementes","solo compacta, asfalto nasce, fruto desaparece, raiz voa","ave germina, areia floresce, cimento forma frutos","fruto vira pedra, pedra vira folha, folha vira ponte"],"a":0,"exp":"O material mostra o ciclo da planta recomeçando com novas sementes."},
+  {"area":"Germinação","topic":"Experimento dos copos","q":"No experimento dos quatro copos, quais sementes germinaram?","opts":["As dos copos 1 e 3","As dos copos 2 e 4","Todas as sementes","Nenhuma semente"],"a":0,"exp":"O enunciado afirma que apenas as sementes dos copos 1 e 3 germinaram."},
+  {"area":"Germinação","topic":"Experimento dos copos","q":"O experimento dos copos mostra que, para germinar, a semente...","opts":["necessita de água","não precisa de água","precisa sempre ficar no sol","precisa estar em solo compactado"],"a":0,"exp":"Apenas um copo de cada ambiente recebeu água, e foram esses que germinaram."},
+  {"area":"Germinação","topic":"Experimento dos copos","q":"No experimento, a semente precisa de luz para germinar?","opts":["Não necessariamente; germinou também no escuro quando recebeu água","Sim, só germinou no local ensolarado","Sim, todas as sementes sem luz morreram antes de germinar","Não, porque plantas nunca precisam de luz"],"a":0,"exp":"O copo 3 ficou no escuro, recebeu água e germinou."},
+  {"area":"Germinação","topic":"Planta no escuro","q":"Se a planta do copo 3 continuar no escuro depois de germinar, o que pode acontecer?","opts":["Pode ter dificuldade para se desenvolver bem, pois as folhas precisam de luz para produzir alimento","Vai formar asfalto","Vai virar uma semente de coco","Vai deixar de ter raiz"],"a":0,"exp":"Após germinar, a planta precisa de luz para produzir alimento nas folhas."},
+
+  {"area":"Solo","topic":"O que é o solo","q":"O solo é definido no material como...","opts":["a camada mais superficial da Terra","uma ave que come frutos","a parte da planta que produz sementes","um fruto da Amazônia"],"a":0,"exp":"O solo é a camada superficial da Terra, onde pisamos."},
+  {"area":"Solo","topic":"Tipos de superfície","q":"Quais exemplos de superfícies naturais aparecem no texto sobre solo?","opts":["Terra, areia e barro","Asfalto, vidro e metal","Cacau, cupuaçu e buriti","Raiz, caule e folha"],"a":0,"exp":"O texto cita chão de terra, areia e barro como superfícies naturais."},
+  {"area":"Solo","topic":"Características do solo","q":"Cada tipo de solo apresenta características próprias, como...","opts":["cor e textura","frutos e penas","asfalto e placas","som e sabor"],"a":0,"exp":"O material destaca cor e textura como características do solo."},
+  {"area":"Solo","topic":"Importância para plantas","q":"Por que as plantas precisam do solo para se desenvolver?","opts":["Porque o solo fornece água e nutrientes","Porque o solo as mantém aquecidas","Porque o solo é sempre feito de frutos","Porque o solo substitui as folhas"],"a":0,"exp":"O solo oferece água e nutrientes que as plantas absorvem pelas raízes."},
+  {"area":"Solo","topic":"Importância para a vida","q":"Além das plantas, o solo é importante porque...","opts":["muitas plantas alimentam pessoas e animais","impede qualquer vida na Terra","não abriga nenhum ser vivo","é sempre coberto por cimento"],"a":0,"exp":"O material mostra que o solo sustenta plantas usadas como alimento."},
+  {"area":"Solo","topic":"Abrigo no solo","q":"Quais seres vivos aparecem como exemplos de habitantes do solo?","opts":["Minhocas, formigas e microrganismos","Tucanos, jacus e mutuns apenas","Cacau, buriti e piquiá","Asfalto, cimento e concreto"],"a":0,"exp":"O solo abriga animais pequenos e microrganismos como bactérias."},
+  {"area":"Solo","topic":"Atividades humanas","q":"Do solo podem ser extraídas matérias-primas usadas em...","opts":["objetos, combustíveis e construção civil","germinação sem água","penas de aves frugívoras","frutos que não têm sementes"],"a":0,"exp":"O material cita objetos, combustíveis e construção civil."},
+  {"area":"Solo","topic":"Atividades humanas","q":"Sobre o solo, os seres humanos constroem...","opts":["casas, escolas, hospitais, fábricas e estradas","somente sementes de feijão","apenas flores e frutos","raízes sem plantas"],"a":0,"exp":"O texto enumera várias construções humanas feitas sobre o solo."},
+  {"area":"Solo","topic":"Solo nas cidades","q":"Nas cidades, ruas asfaltadas e calçadas com cimento dificultam...","opts":["a penetração da água da chuva no solo","a alimentação das aves frugívoras","a existência de sementes nos frutos","a formação de flores"],"a":0,"exp":"Asfalto e cimento reduzem a entrada da água no solo."},
+  {"area":"Solo","topic":"Solo nas cidades","q":"Quando a água da chuva não penetra no solo das cidades, pode ocorrer...","opts":["acúmulo de água e enchentes","germinação de todos os frutos","mais poros no asfalto","desaparecimento das sementes"],"a":0,"exp":"A água acumulada pode causar enchentes."},
+  {"area":"Solo","topic":"Solo nas cidades","q":"Uma forma de ajudar o escoamento da água nas cidades é conservar...","opts":["áreas verdes, praças com grama, jardins e árvores","apenas mais cimento","somente ruas sem plantas","frutos sem sementes"],"a":0,"exp":"Cobertura vegetal ajuda a água a penetrar no solo."},
+  {"area":"Solo","topic":"Formação do solo","q":"A formação do solo é um processo...","opts":["lento e contínuo","instantâneo e sem rochas","feito apenas por aves","que ocorre só em cidades asfaltadas"],"a":0,"exp":"O texto afirma que a formação do solo é lenta e contínua."},
+  {"area":"Solo","topic":"Formação do solo","q":"O solo se forma principalmente pelo desgaste...","opts":["das rochas ao longo de muitos anos","das frutas maduras em um dia","das penas dos tucanos","do asfalto novo"],"a":0,"exp":"O desgaste das rochas gera partículas minerais que formam o solo."},
+  {"area":"Solo","topic":"Formação do solo","q":"Quais fatores naturais ajudam a desgastar as rochas na formação do solo?","opts":["Vento, luz solar, água, temperatura e seres vivos","Apenas cimento e asfalto","Somente frutos coloridos","Apenas flores de araucária"],"a":0,"exp":"O material lista esses fatores como agentes do desgaste das rochas."},
+  {"area":"Solo","topic":"Componentes do solo","q":"Segundo o resumo do material, o solo é constituído de...","opts":["minerais, materiais orgânicos, ar e água","somente asfalto e cimento","apenas sementes e frutos","só aves e mamíferos"],"a":0,"exp":"Esses quatro componentes aparecem no esquema do solo."},
+  {"area":"Solo","topic":"Material orgânico","q":"Os seres vivos que habitam o solo morrem e se decompõem, transformando-se em...","opts":["materiais orgânicos","asfalto","flores sem sementes","partículas de vento"],"a":0,"exp":"A decomposição forma matéria orgânica no solo."},
+  {"area":"Solo","topic":"Textura","q":"A textura do solo depende principalmente...","opts":["do tamanho das partículas minerais","da cor dos frutos maduros","do modo como as aves voam","da quantidade de ruas"],"a":0,"exp":"A textura está ligada ao tamanho das partículas que compõem o solo."},
+  {"area":"Solo","topic":"Textura","q":"Qual partícula mineral é maior entre as citadas?","opts":["Areia","Silte","Argila","Bactéria"],"a":0,"exp":"A areia tem partículas maiores que silte e argila."},
+  {"area":"Solo","topic":"Textura","q":"A partícula de argila é tão pequena que geralmente...","opts":["só pode ser vista com microscópio","é vista facilmente a olho nu","tem o tamanho de um coco","é maior que a areia"],"a":0,"exp":"O material informa que a argila não é vista a olho nu."},
+  {"area":"Solo","topic":"Tipos de solo","q":"Quando há maior quantidade de areia, o solo é classificado como...","opts":["arenoso","argiloso","humoso","siltoso sempre"],"a":0,"exp":"Solo com mais areia é chamado de arenoso."},
+  {"area":"Solo","topic":"Tipos de solo","q":"Quando a argila é o componente principal, o solo é classificado como...","opts":["argiloso","arenoso","frugívoro","germinado"],"a":0,"exp":"Solo com predominância de argila é argiloso."},
+  {"area":"Solo","topic":"Solo humoso","q":"Quando o solo tem muita matéria orgânica, ele é chamado de...","opts":["humoso","compactado por cimento","frugívoro","costeiro"],"a":0,"exp":"O material chama de humoso o solo com muita matéria orgânica."},
+  {"area":"Solo","topic":"Cor do solo","q":"Solos com grande quantidade de material orgânico geralmente são...","opts":["mais escuros, marrons ou pretos","sempre amarelo-claro","azuis como o mar","transparentes"],"a":0,"exp":"A matéria orgânica costuma deixar o solo mais escuro."},
+  {"area":"Solo","topic":"Cor do solo","q":"Solos ricos em minerais como o ferro podem ter tonalidades...","opts":["marrom alaranjado ou marrom amarelado","azul ou roxo sempre","branco transparente","verde como folha"],"a":0,"exp":"O material liga minerais como ferro a tons alaranjados ou amarelados."},
+  {"area":"Solo","topic":"Porosidade","q":"Porosidade é...","opts":["a quantidade de espaços entre as partículas do solo","a cor dos frutos maduros","a primeira folha da planta","a semente da araucária"],"a":0,"exp":"Porosidade indica os espaços existentes entre as partículas."},
+  {"area":"Solo","topic":"Permeabilidade","q":"A permeabilidade do solo é sua capacidade de...","opts":["permitir a passagem de água","formar frutos coloridos","lançar sementes pelo vento","absorver sementes de aves"],"a":0,"exp":"Permeabilidade é a capacidade de deixar a água passar."},
+  {"area":"Solo","topic":"Solo arenoso","q":"O solo arenoso é bastante permeável porque apresenta...","opts":["partículas grandes e espaçadas","partículas muito pequenas e próximas","muito cimento sem espaços","somente material orgânico"],"a":0,"exp":"Partículas maiores e espaçadas deixam a água passar com facilidade."},
+  {"area":"Solo","topic":"Solo argiloso","q":"O solo argiloso retém água porque tem partículas...","opts":["pequenas e próximas","grandes como pedras","sempre cheias de frutos","sem nenhum mineral"],"a":0,"exp":"Partículas pequenas dificultam a passagem da água."},
+  {"area":"Solo","topic":"Solo compactado","q":"Quando o solo é compactado, ele fica com...","opts":["poucos espaços para passagem de ar e água","mais frutos coloridos","mais sementes de araucária","folhas produzindo alimento"],"a":0,"exp":"Sem espaços entre partículas, ar e água passam com dificuldade."},
+
+  {"area":"Misto","topic":"Revisão geral","q":"Qual combinação está correta?","opts":["Flor forma fruto; fruto contém semente; semente carrega embrião","Raiz forma asfalto; caule vira cimento; folha é argila","Areia é ave; jacu é solo; cutia é fruto","Solo compactado deixa toda água passar com facilidade"],"a":0,"exp":"Essa sequência resume a reprodução das plantas mostrada no material."},
+  {"area":"Misto","topic":"Revisão geral","q":"Qual exemplo mostra dispersão por animal?","opts":["Cutia enterra sementes e muitas germinam","Semente leve é levada pelo vento","Coco flutua na água do mar","Rocha se desgasta formando solo"],"a":0,"exp":"A cutia ajuda a espalhar sementes ao enterrá-las."},
+  {"area":"Misto","topic":"Revisão geral","q":"Qual exemplo mostra dispersão pela água?","opts":["Coco levado pelo mar até praias distantes","Bardana grudada no pelo de um animal","Fruto vermelho atraindo aves","Solo argiloso retendo água"],"a":0,"exp":"O coco pode flutuar e ser transportado pela água."},
+  {"area":"Misto","topic":"Revisão geral","q":"Qual frase está correta sobre germinação e solo?","opts":["A semente precisa de água para germinar, e o solo fornece água e nutrientes às plantas","Toda semente germina sem água, e o solo não tem relação com plantas","A semente só germina dentro do asfalto","O solo é formado rapidamente por frutos maduros"],"a":0,"exp":"As fotos destacam a água na germinação e o papel do solo para as plantas."},
+  {"area":"Misto","topic":"Revisão geral","q":"Qual alternativa junta corretamente solo e suas propriedades?","opts":["Textura depende do tamanho das partículas; porosidade são espaços; permeabilidade é passagem de água","Textura é cor do fruto; porosidade é embrião; permeabilidade é flor","Solo humoso não tem matéria orgânica","Solo arenoso retém toda a água"],"a":0,"exp":"Essas são as definições trabalhadas nas páginas sobre propriedades do solo."},
+  {"area":"Misto","topic":"Revisão geral","q":"Em uma cidade com muito asfalto e poucas áreas verdes, a água da chuva tende a...","opts":["penetrar menos no solo e se acumular, podendo causar enchentes","formar sementes de araucária imediatamente","aumentar a germinação sem água","transformar todos os solos em humosos"],"a":0,"exp":"O material explica que asfalto e cimento dificultam a infiltração da água."},
+  {"area":"Misto","topic":"Revisão geral","q":"Qual conjunto contém apenas temas que aparecem nas fotos da prova de Natureza?","opts":["Partes das plantas, dispersão, germinação, solo e propriedades do solo","Somente frutos da Amazônia, sem germinação e sem solo","Somente asfalto e cimento, sem plantas e sementes","Somente aves, sem vento, água, germinação ou solo"],"a":0,"exp":"O módulo de Natureza foi focado nas páginas fotografadas."}
 ];
 
 const EXAM_YEARS = [
@@ -304,24 +396,24 @@ const EXAM_YEARS = [
         id: 'natureza-2026',
         subject: 'Ciências da Natureza',
         icon: '🔬',
-        teacher: 'Módulo inicial',
-        status: 'Novo',
+        teacher: 'Prof.ª Miriam',
+        status: 'Completa',
         assessmentDate: '25 de junho de 2026',
         assessmentShortDate: '25/06/2026',
         assessmentStatus: 'Próxima avaliação',
-        areasLabel: 'Seres vivos, ambiente, corpo humano, materiais, água e Terra',
-        intro: 'Revisão inicial para estudar Ciências da Natureza com cards, flashcards e simulado.',
-        description: 'Ferramenta de apoio ao estudo para prova de Ciências da Natureza. O conteúdo já está organizado em formato modular para receber novas unidades quando a prova tiver material específico.',
-        topics: 'Conteúdo-base: investigação científica, seres vivos, plantas, animais, cadeia alimentar, corpo humano, sentidos, materiais, água, Sol, Terra, Lua e preservação ambiental.',
-        studyPlan: 'Comece pelos cards para revisar conceitos. Depois use flashcards para falar as respostas em voz alta e finalize com o simulado. Quando houver material da próxima prova, este módulo pode ser refinado por unidade.',
+        areasLabel: 'Plantas, sementes, germinação e solo',
+        intro: 'Revisão da avaliação de 25 de junho de 2026, baseada nas páginas fotografadas do material.',
+        description: 'Ferramenta de apoio ao estudo para a prova de Ciências da Natureza do Colégio Notre Dame Campinas, com questões no nível da turma do 3º ano e focadas no conteúdo enviado.',
+        topics: 'Conteúdo coberto: partes das plantas, flores, frutos, sementes, embrião, dispersão pelo vento, água e animais, germinação, ciclo de vida das plantas, solo, formação do solo, componentes, textura, cor, porosidade, permeabilidade e solo nas atividades humanas.',
+        studyPlan: 'Leia os cards em voz alta. Depois faça as fases Plantas e Sementes, Germinação e Solo. Termine com o Simulado Final. Se errar, revise somente os cards do assunto marcado no fim.',
         lessons: NATURE_LESSONS,
         questions: NATURE_QUESTIONS,
         flashcards: NATURE_FLASHCARDS,
         modes: [
-          {key:'vida', title:'Fase Vida e Ambiente', emoji:'🌱', description:'Seres vivos, plantas, animais, cadeias alimentares e preservação.', count:12, includeAreas:['Seres vivos','Ambiente','Misto']},
-          {key:'corpo', title:'Fase Corpo Humano', emoji:'🧠', description:'Saúde, hábitos e órgãos dos sentidos.', count:8, includeAreas:['Corpo humano','Misto']},
-          {key:'materia-terra', title:'Fase Materiais e Terra', emoji:'🧪', description:'Materiais, água, Sol, Terra, Lua e sombras.', count:12, includeAreas:['Materiais','Terra e Universo','Misto']},
-          {key:'all', title:'Simulado Final', emoji:'🎯', description:'Mistura todos os temas da prova.', count:20, includeAreas:'all'}
+          {key:'plantas', title:'Fase Plantas e Sementes', emoji:'🌱', description:'Partes das plantas, frutos, sementes e dispersão.', count:16, includeAreas:['Plantas','Dispersão','Misto']},
+          {key:'germinacao', title:'Fase Germinação', emoji:'🫘', description:'Embrião, condições para germinar, ciclo da planta e experimento dos copos.', count:12, includeAreas:['Germinação','Misto']},
+          {key:'solo', title:'Fase Solo', emoji:'🟫', description:'O que é solo, formação, componentes, textura, cor, porosidade e permeabilidade.', count:16, includeAreas:['Solo','Misto']},
+          {key:'all', title:'Simulado Final', emoji:'🎯', description:'Mistura exatamente os temas enviados nas fotos.', count:25, includeAreas:'all'}
         ]
       }
     ]
@@ -401,7 +493,7 @@ function showLessons() {
   document.getElementById('lessonsTitle').textContent = `📚 Cards de estudo · ${activeExam.subject}`;
   const grid=document.getElementById('lessonGrid'); grid.innerHTML='';
   activeExam.lessons.forEach(l=>grid.innerHTML += `<div class="card lesson"><div class="area">${l.area}</div><div class="emoji">${l.emoji}</div><h2>${l.title}</h2><p>${l.text}</p></div>`);
-  document.querySelector('#lessons .card:last-child p').textContent = activeExam.studyPlan;
+  document.getElementById('studyPlanText').textContent = activeExam.studyPlan;
   window.scrollTo(0,0);
 }
 
