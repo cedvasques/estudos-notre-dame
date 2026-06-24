@@ -35,6 +35,7 @@ body:before{content:"";position:fixed;inset:0;background:radial-gradient(circle 
 .selectorGrid .modeCard.isReady{border-left:5px solid var(--brand)}
 .selectorGrid .modeCard.isDraft{border-left:5px solid var(--yellow)}
 .choiceMeta{color:var(--muted);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0;margin-bottom:8px}
+.assessmentDate{display:inline-block;margin:6px 0 2px;color:#92400e;background:#fef3c7;border:1px solid #fde68a;border-radius:999px;padding:6px 9px;font-size:13px;font-weight:900}
 .emptyState{background:#fff7ed;border-color:#fed7aa}
 h1{margin:0 0 8px;font-size:34px;line-height:1.05}
 h2{margin:8px 0 10px;font-size:24px}
@@ -282,6 +283,9 @@ const EXAM_YEARS = [
         icon: '🏛️',
         teacher: 'Prof.ª Miriam',
         status: 'Completa',
+        assessmentDate: '18 de junho de 2026',
+        assessmentShortDate: '18/06/2026',
+        assessmentStatus: 'Realizada',
         areasLabel: 'História e Geografia',
         intro: 'Revisão gamificada para consolidar os conteúdos trabalhados em aula.',
         description: 'Ferramenta de apoio ao estudo para a prova de Ciências Humanas do Colégio Notre Dame Campinas, com referência pedagógica da professora Miriam.',
@@ -302,6 +306,9 @@ const EXAM_YEARS = [
         icon: '🔬',
         teacher: 'Módulo inicial',
         status: 'Novo',
+        assessmentDate: '25 de junho de 2026',
+        assessmentShortDate: '25/06/2026',
+        assessmentStatus: 'Próxima avaliação',
         areasLabel: 'Seres vivos, ambiente, corpo humano, materiais, água e Terra',
         intro: 'Revisão inicial para estudar Ciências da Natureza com cards, flashcards e simulado.',
         description: 'Ferramenta de apoio ao estudo para prova de Ciências da Natureza. O conteúdo já está organizado em formato modular para receber novas unidades quando a prova tiver material específico.',
@@ -348,7 +355,7 @@ function showExamSelect() {
   const grid=document.getElementById('examGrid'); grid.innerHTML='';
   selectedYear.exams.forEach(exam=> {
     const stateClass = exam.status==='Completa' ? 'isReady' : 'isDraft';
-    grid.innerHTML += `<div class="card modeCard ${stateClass}" onclick="selectExam('${exam.id}')"><div class="choiceMeta">${exam.status}</div><div class="kpi">${exam.icon}</div><h2>${exam.subject}</h2><p>${exam.areasLabel}</p></div>`;
+    grid.innerHTML += `<div class="card modeCard ${stateClass}" onclick="selectExam('${exam.id}')"><div class="choiceMeta">${exam.status} · ${exam.assessmentStatus}</div><div class="kpi">${exam.icon}</div><h2>${exam.subject}</h2><div class="assessmentDate">Avaliação de ${exam.assessmentDate}</div><p>${exam.areasLabel}</p></div>`;
   });
   document.getElementById('examSelect').classList.remove('hidden');
   window.scrollTo(0,0);
@@ -371,7 +378,7 @@ function goHome() {
 function renderModuleHome() {
   document.title = `Ferramenta de Estudo — ${activeExam.subject}`;
   document.getElementById('moduleTeacher').innerHTML = `${activeExam.teacher}<br>${activeExam.subject}`;
-  document.getElementById('moduleContext').innerHTML = `<span class="examTag">Ano ${selectedYear.year}</span><span class="examTag">${activeExam.status}</span>`;
+  document.getElementById('moduleContext').innerHTML = `<span class="examTag">Ano ${selectedYear.year}</span><span class="examTag">Avaliação de ${activeExam.assessmentDate}</span><span class="examTag">${activeExam.assessmentStatus}</span><span class="examTag">${activeExam.status}</span>`;
   document.getElementById('moduleEyebrow').textContent = 'Ferramenta de estudo para prova';
   document.getElementById('moduleTitle').textContent = activeExam.subject;
   document.getElementById('moduleIntro').textContent = activeExam.intro;
