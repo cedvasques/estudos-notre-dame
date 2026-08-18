@@ -171,6 +171,7 @@ p{line-height:1.38;margin:8px 0}
       <div id="options"></div>
       <div id="feedback" class="feedback"></div>
       <div class="row">
+        <button class="btn purple" id="listenBtn" onclick="listenQuestion()" style="display:none">🔊 Ouvir em inglês</button>
         <button class="btn secondary" id="checkBtn" onclick="checkAnswer()">Conferir</button>
         <button class="btn" id="nextBtn" onclick="nextQuestion()" style="display:none">Próxima</button>
       </div>
@@ -582,6 +583,123 @@ const PORTUGUESE_QUESTIONS = [
   portugueseQuestion('pt-112','P2-07','Pontuação','Mudança de sentido','Qual versão transforma a afirmação “A porta está aberta.” em pergunta sem mudar nenhuma palavra?','A porta está aberta?',['A porta está aberta!','A porta está aberta.','A porta está aberta:'],2,'Trocar o ponto-final por interrogação cria uma pergunta.'),
 ];
 
+const ENGLISH_LESSONS = [
+  {area:'Where We Live', title:'Places in town', emoji:'🏙️', text:'Os lugares principais são: school (escola), hospital (hospital), train station (estação de trem), bus stop (ponto de ônibus), movie theater (cinema), store (loja) e café (cafeteria).'},
+  {area:'Where We Live', title:'Places for shopping', emoji:'🛍️', text:'Store é loja. Toy store é loja de brinquedos. Bookstore é livraria. Movie theater é cinema, mesmo que theater sozinho também possa significar teatro.'},
+  {area:'Where We Live', title:'Places for leisure', emoji:'🛝', text:'Park é parque, playground é parquinho e swimming pool é piscina. A palavra swimming tem duas letras m.'},
+  {area:'Where We Live', title:'Train station and bus stop', emoji:'🚉', text:'Train station é estação de trem. Bus stop é ponto de ônibus. Observe que station não é o trem: é o lugar onde ele para.'},
+  {area:'Where We Live', title:'School, hospital and café', emoji:'🏫', text:'School é escola, hospital é hospital e café é cafeteria. Em inglês, café também pode nomear o estabelecimento.'},
+  {area:'Where We Live', title:'Perguntando onde fica', emoji:'🗺️', text:"Use Where's...? para perguntar onde fica um lugar: Where's your hospital? Responda com It's...: It's next to the café."},
+  {area:'Does', title:'Does your town have...?', emoji:'❓', text:'Para perguntar se a cidade tem algo, use Does + your town + have: Does your town have a park? O verbo fica have, sem s.'},
+  {area:'Does', title:'Yes, it does', emoji:'✅', text:'Resposta afirmativa curta: Yes, it does. Não repita has na resposta curta.'},
+  {area:'Does', title:"No, it doesn't", emoji:'🚫', text:"Resposta negativa curta: No, it doesn't. Na frase completa: The town doesn't have a swimming pool."},
+  {area:'Does', title:'The town has...', emoji:'🏘️', text:"Na afirmação, use has: The town has a park. Na negação com doesn't, volte para have: The town doesn't have a park."},
+  {area:'Prepositions', title:'Next to', emoji:'↔️', text:'Next to significa ao lado de. The hospital is next to the train station.'},
+  {area:'Prepositions', title:'Behind', emoji:'🔙', text:'Behind significa atrás de. The park is behind the stores.'},
+  {area:'Prepositions', title:'In front of', emoji:'🔜', text:'In front of significa na frente de. The school is in front of the train station.'},
+  {area:'Prepositions', title:'Between', emoji:'⏺️', text:'Between significa entre duas referências. The bookstore is between the toy store and the movie theater.'},
+  {area:'Prepositions', title:'Montando a frase', emoji:'🧩', text:'A ordem mais comum é: The + lugar + is + preposição + the + referência. Exemplo: The fish is next to the rock.'},
+  {area:'Sports Center', title:'Sports vocabulary', emoji:'⚽', text:'Revise: badminton, ping-pong, tennis, basketball, baseball, volleyball, soccer, swimming, field hockey e track and field.'},
+  {area:'Sports Center', title:'Ball sports', emoji:'🏀', text:'Soccer usa uma bola; basketball usa bola e cesta; volleyball usa bola e rede; baseball usa bola e taco.'},
+  {area:'Sports Center', title:'Rackets and bats', emoji:'🏸', text:'Tennis e badminton usam racket. Baseball usa bat. Ping-pong usa uma pequena racket/paddle e uma mesa com net.'},
+  {area:'Sports Center', title:'Sports equipment', emoji:'🥽', text:'Equipment: ball (bola), bat (taco), racket (raquete), board (prancha), helmet (capacete), goggles (óculos de proteção) e net (rede).'},
+  {area:'Sports Center', title:'Favorite sport', emoji:'⭐', text:'Pergunte How many children like swimming? Responda Eight children like swimming. Para preferência: Basketball is my favorite sport.'},
+  {area:'Sports Center', title:'Writing about a sport', emoji:'✍️', text:'Modelo: Basketball is my favorite sport. You play it on a court. You need a big ball and a net. You wear shorts and a T-shirt.'},
+  {area:'-ing', title:'Like + -ing', emoji:'❤️', text:'Depois de like, use a atividade em -ing: I like playing soccer. I like swimming. Não use I like play soccer neste conteúdo.'},
+  {area:'-ing', title:'Dobrando a consoante', emoji:'🔤', text:'Em alguns verbos curtos, dobre a última consoante: swim → swimming e run → running.'},
+  {area:'-ing', title:'Tirando o e final', emoji:'✂️', text:'Quando o verbo termina em e, retire o e: ride → riding e make → making. Outros recebem ing: play → playing, watch → watching, read → reading.'},
+  {area:'Reading', title:'Specific information', emoji:'🔎', text:'Na leitura, procure detalhes exatos: quem pratica o esporte, quantas pessoas há, qual equipamento aparece e se a frase combina com a imagem ou o texto.'},
+  {area:'Graph', title:'Reading a graph', emoji:'📊', text:'No gráfico da página 100: 22 crianças; swimming 8, soccer 7, track and field 3, ping-pong 2 e tennis 2. A barra maior mostra a preferência mais comum.'},
+  {area:'Writing', title:'A good short paragraph', emoji:'📝', text:'Escreva em ordem: nome do esporte favorito, lugar onde se joga, equipamento necessário e roupa usada. Comece frases com letra maiúscula e termine com ponto.'},
+  {area:'Listening', title:'How to practice listening', emoji:'🎧', text:'Nos exercícios com o botão “Ouvir em inglês”, escute uma vez sem olhar as opções, depois escute novamente e escolha a frase ou palavra ouvida.'}
+];
+
+const ENGLISH_FLASHCARDS = [
+  ['train station','estação de trem'], ['hospital','hospital'], ['movie theater','cinema'], ['school','escola'],
+  ['café','cafeteria'], ['store','loja'], ['toy store','loja de brinquedos'], ['bookstore','livraria'],
+  ['park','parque'], ['playground','parquinho'], ['bus stop','ponto de ônibus'], ['swimming pool','piscina'],
+  ['next to','ao lado de'], ['behind','atrás de'], ['in front of','na frente de'], ['between','entre'],
+  ['Does your town have a park?','Sua cidade tem um parque?'], ['Yes, it does.','Sim, ela tem.'], ["No, it doesn't.",'Não, ela não tem.'], ['The town has a café.','A cidade tem uma cafeteria.'],
+  ['badminton','badminton'], ['ping-pong','tênis de mesa'], ['track and field','atletismo'], ['field hockey','hóquei sobre a grama'],
+  ['racket','raquete'], ['bat','taco'], ['helmet','capacete'], ['goggles','óculos de proteção'],
+  ['I like playing soccer.','Eu gosto de jogar futebol.'], ['swim → swimming','nadar → nadando'], ['ride → riding','andar/pedalar → andando/pedalando'], ['How many children like swimming?','Quantas crianças gostam de natação?']
+];
+
+function englishQuestion(id, area, topic, q, correct, distractors, slot, exp, audio='') {
+  const opts=[...distractors];
+  opts.splice(slot,0,correct);
+  return {id, area, topic, q, opts, a:slot, exp, audio};
+}
+
+const ENGLISH_QUESTIONS = [
+  englishQuestion('en-001','Lugares','Vocabulário','Which place is a train station?','A place where trains stop.',['A place where doctors work.','A place where people watch movies.','A place where children study.'],0,'Train station significa estação de trem.'),
+  englishQuestion('en-002','Lugares','Vocabulário','Complete: “The doctors work at the ___.”','hospital',['school','playground','bookstore'],1,'Hospital é o lugar onde médicos trabalham.'),
+  englishQuestion('en-003','Lugares','Vocabulário','Where do people watch a movie?','At the movie theater.',['At the bus stop.','At the swimming pool.','At the train station.'],2,'Movie theater significa cinema.'),
+  englishQuestion('en-004','Lugares','Vocabulário','Which word means “cafeteria”?','café',['park','store','school'],3,'Em inglês, café pode nomear uma cafeteria.'),
+  englishQuestion('en-005','Lugares','Vocabulário','Choose the word for “escola”.','school',['store','hospital','park'],0,'School significa escola.'),
+  englishQuestion('en-006','Lugares','Vocabulário','Which place usually has trees, grass and benches?','park',['movie theater','train station','hospital'],1,'Park significa parque.'),
+  englishQuestion('en-007','Lugares','Vocabulário','Children can play on slides and swings at the...','playground',['bookstore','bus stop','swimming pool'],2,'Playground é o parquinho com brinquedos.'),
+  englishQuestion('en-008','Lugares','Vocabulário','Where do people wait for a bus?','At the bus stop.',['At the café.','At the school.','At the toy store.'],3,'Bus stop significa ponto de ônibus.'),
+  englishQuestion('en-009','Lugares','Vocabulário','Choose the correct translation of “piscina”.','swimming pool',['playground','train station','movie theater'],0,'Swimming pool significa piscina.'),
+  englishQuestion('en-010','Lugares','Vocabulário','Which word means a place where people buy things?','store',['park','hospital','school'],1,'Store significa loja.'),
+  englishQuestion('en-011','Lugares','Vocabulário','Where can you buy books?','At the bookstore.',['At the playground.','At the movie theater.','At the bus stop.'],2,'Bookstore significa livraria.'),
+  englishQuestion('en-012','Lugares','Vocabulário','Where can you buy toys?','At the toy store.',['At the hospital.','At the train station.','At the café.'],3,'Toy store significa loja de brinquedos.'),
+
+  englishQuestion('en-013','Does','Perguntas','Complete: “___ your town have a park?”','Does',['Do','Has','Is'],0,'Com your town, a pergunta começa com Does.'),
+  englishQuestion('en-014','Does','Listening','Toque em “Ouvir em inglês” e escolha a resposta ouvida.','Yes, it does.',['Yes, it is.',"No, it doesn't.",'Yes, it has.'],1,'A resposta curta afirmativa é Yes, it does.','Yes, it does.'),
+  englishQuestion('en-015','Does','Respostas',"Complete: “Does your town have a café?” “No, it ___.”","doesn't",['is not','has not','do not'],2,"A resposta curta negativa é No, it doesn't."),
+  englishQuestion('en-016','Does','Afirmação','Choose the correct affirmative sentence.','The town has a school.',['The town have a school.','The town does has a school.','The town having a school.'],3,'Na afirmação com the town, use has.'),
+  englishQuestion('en-017','Does','Negação','Choose the correct negative sentence.',"The town doesn't have a swimming pool.",["The town doesn't has a swimming pool.",'The town not have a swimming pool.',"The town don't have a swimming pool."],0,"Depois de doesn't, use have."),
+  englishQuestion('en-018','Does','Perguntas','Which question is correct?','Does your town have a movie theater?',['Does your town has a movie theater?','Do your town have a movie theater?','Your town does have a movie theater?'],1,'A estrutura é Does + your town + have.'),
+  englishQuestion('en-019','Does','Perguntas','Complete with the correct verb: “Does the town ___ a hospital?”','have',['has','having','had'],2,'Depois de Does, use o verbo na forma base: have.'),
+  englishQuestion('en-020','Does','Listening','Toque em “Ouvir em inglês” e escolha a pergunta ouvida.','Does your town have a bookstore?',['Does your town have a bus stop?','Does your school have a bookstore?','Does the bookstore have a town?'],3,'A frase pergunta se a cidade tem uma livraria.','Does your town have a bookstore?'),
+
+  englishQuestion('en-021','Preposições','Next to','What does “next to” mean?','ao lado de',['atrás de','na frente de','entre'],0,'Next to significa ao lado de.'),
+  englishQuestion('en-022','Preposições','Behind','What does “behind” mean?','atrás de',['ao lado de','entre','na frente de'],1,'Behind significa atrás de.'),
+  englishQuestion('en-023','Preposições','In front of','What does “in front of” mean?','na frente de',['entre','atrás de','ao lado de'],2,'In front of significa na frente de.'),
+  englishQuestion('en-024','Preposições','Between','What does “between” mean?','entre',['na frente de','ao lado de','atrás de'],3,'Between é usado para algo que está entre duas referências.'),
+  englishQuestion('en-025','Preposições','Listening','Toque em “Ouvir em inglês” e escolha a frase ouvida.','The café is between the school and the movie theater.',['The café is behind the school.','The café is in front of the movie theater.','The school is between two cafés.'],0,'A cafeteria está entre a escola e o cinema.','The café is between the school and the movie theater.'),
+  englishQuestion('en-026','Preposições','Map','Look at the model map: where is the car?','It is in front of the train station.',['It is behind the hospital.','It is between two parks.','It is next to the swimming pool.'],1,'No mapa do material, o carro está na frente da estação.'),
+  englishQuestion('en-027','Preposições','Map','Complete the model sentence: “The hospital is ___ the train station.”','next to',['behind','in front of','between'],2,'No mapa, o hospital fica ao lado da estação.'),
+  englishQuestion('en-028','Preposições','Map','The tree is ___ the movie theater.','behind',['between','next to','in front of'],3,'No exercício, a árvore está atrás do cinema.'),
+  englishQuestion('en-029','Preposições','Street','Complete: “The school is ___ Green Street.”','on',['between','behind','next to'],0,'Usamos on para dizer em qual rua um lugar fica.'),
+  englishQuestion('en-030','Preposições','Map','Choose the correct sentence.','The bookstore is between the toy store and the movie theater.',['The bookstore is behind Green Street.','The toy store is between the bookstore and the school.','The movie theater is in front of the bookstore and toy store.'],1,'O texto do material coloca a livraria entre a loja de brinquedos e o cinema.'),
+  englishQuestion('en-031','Preposições','Speaking',"Answer: “Where's your hospital?”",'It is next to the café.',['Yes, it does.','It has a hospital.','No, it is not.'],2,'Where pede uma localização; responda com It is + preposição.'),
+  englishQuestion('en-032','Preposições','Word order','Put the words in order: “fish / the rock / behind / is / The”.','The fish is behind the rock.',['Behind the fish is the rock.','The rock behind is the fish.','The fish the rock is behind.'],3,'A ordem é sujeito + is + preposição + referência.'),
+
+  englishQuestion('en-033','Esportes','Vocabulário','Which sport uses a shuttlecock?','badminton',['baseball','soccer','swimming'],0,'Badminton usa uma peteca e uma raquete.'),
+  englishQuestion('en-034','Esportes','Vocabulário','Which sport is played on a table with small rackets?','ping-pong',['field hockey','basketball','track and field'],1,'Ping-pong é jogado em uma mesa com rede.'),
+  englishQuestion('en-035','Esportes','Vocabulário','Which sport usually uses a racket, a ball and a court?','tennis',['volleyball','baseball','basketball'],2,'Tennis usa raquete, bola e quadra.'),
+  englishQuestion('en-036','Esportes','Vocabulário','Which sport uses a hoop and a big ball?','basketball',['soccer','badminton','field hockey'],3,'Basketball usa uma bola e uma cesta.'),
+  englishQuestion('en-037','Esportes','Vocabulário','Which sport uses a bat and a ball?','baseball',['swimming','tennis','volleyball'],0,'Baseball usa taco e bola.'),
+  englishQuestion('en-038','Esportes','Listening','Toque em “Ouvir em inglês” e escolha o esporte ouvido.','volleyball',['basketball','baseball','tennis'],1,'Volleyball significa vôlei.','volleyball'),
+  englishQuestion('en-039','Esportes','Vocabulário','Which English word means “futebol”?','soccer',['tennis','swimming','badminton'],2,'No material, futebol aparece como soccer.'),
+  englishQuestion('en-040','Esportes','Vocabulário','Which sport takes place in a pool?','swimming',['track and field','field hockey','ping-pong'],3,'Swimming é natação.'),
+  englishQuestion('en-041','Esportes','Vocabulário','Which sport is played on grass with sticks and a ball?','field hockey',['basketball','swimming','badminton'],0,'Field hockey significa hóquei sobre a grama.'),
+  englishQuestion('en-042','Esportes','Vocabulário','Running and jumping events are part of...','track and field',['baseball','swimming','ping-pong'],1,'Track and field significa atletismo.'),
+  englishQuestion('en-043','Esportes','Equipment','What do you need to play tennis?','a racket',['a bat','a helmet','a board'],2,'Tennis é jogado com raquete.'),
+  englishQuestion('en-044','Esportes','Equipment','What protects your head in some sports?','a helmet',['goggles','a net','a racket'],3,'Helmet significa capacete.'),
+
+  englishQuestion('en-045','-ing','Listening','Toque em “Ouvir em inglês” e escolha a frase ouvida.','I like playing soccer.',['I like play soccer.','I playing like soccer.','I like plays soccer.'],0,'Depois de like, use playing.','I like playing soccer.'),
+  englishQuestion('en-046','-ing','Spelling','Complete: swim → ...','swimming',['swiming','swimms','swimning'],1,'Em swimming, dobre a letra m antes de ing.'),
+  englishQuestion('en-047','-ing','Spelling','Complete: run → ...','running',['runing','runeing','runs'],2,'Em running, dobre a letra n antes de ing.'),
+  englishQuestion('en-048','-ing','Spelling','Complete: ride → ...','riding',['rideing','ridding','rideingg'],3,'Retire o e final de ride e acrescente ing.'),
+  englishQuestion('en-049','-ing','Spelling','Complete: make → ...','making',['makeing','makking','madeing'],0,'Retire o e final de make e acrescente ing.'),
+  englishQuestion('en-050','-ing','Activities','Choose the correct form: watch → ...','watching',['watched','watches','watchs'],1,'Watch recebe ing: watching.'),
+  englishQuestion('en-051','-ing','Activities','Choose the correct sentence.','I like reading books.',['I like read books.','I like reads books.','I reading like books.'],2,'Depois de like, reading nomeia a atividade.'),
+  englishQuestion('en-052','-ing','Activities','Complete: “I like ___ to music.”','listening',['listen','listenning','listens'],3,'A expressão é listening to music.'),
+
+  englishQuestion('en-053','Leitura','Specific information','Toque em “Ouvir em inglês” e escolha o equipamento citado.','a big ball and a net',['a racket and goggles','a helmet and a board','a bat and a small ball'],0,'O texto sobre basketball diz que são necessários uma bola grande e uma rede/cesta.','You need a big ball and a net.'),
+  englishQuestion('en-054','Leitura','Sports scene','Read: “Two boys are playing badminton.” Which detail confirms the sport?','They have rackets and a shuttlecock.',['They are in a swimming pool.','They are using a baseball bat.','They are kicking a soccer ball.'],1,'Raquetes e peteca identificam o badminton.'),
+  englishQuestion('en-055','Leitura','Yes or no','A picture shows a man standing next to his dog. Is “The man has a dog” correct?','Yes.',['No, the dog is alone.','No, the man has a cat.','The picture does not show an animal.'],2,'A imagem mostra claramente o homem com um cachorro.'),
+  englishQuestion('en-056','Leitura','Specific information','Read: “Basketball is my favorite sport. You play it on a court.” Where do you play basketball?','On a court.',['At a train station.','In a bookstore.','Behind a café.'],3,'A informação específica do texto é on a court.'),
+
+  englishQuestion('en-057','Gráfico','Total','The graph says there are 22 children in the class. What is the total?','22',['8','7','3'],0,'O texto ao lado do gráfico informa 22 crianças.'),
+  englishQuestion('en-058','Gráfico','Most popular','In the graph, 8 children choose swimming and 7 choose soccer. Which is the favorite sport?','swimming',['soccer','tennis','track and field'],1,'Swimming tem a maior quantidade: 8.'),
+  englishQuestion('en-059','Gráfico','Least popular','Ping-pong and tennis each have 2 votes. Which statement is correct?','They are tied for the fewest votes.',['Swimming has fewer votes.','Soccer has 2 votes.','They are tied for the most votes.'],2,'Duas modalidades têm o menor valor, 2.'),
+  englishQuestion('en-060','Escrita','Favorite sport','Which is the best short paragraph?','Basketball is my favorite sport. You play it on a court. You need a ball and a net.',['Basketball favorite. Court ball net.','My favorite sport basketball it play.','Basketball is my favorite sport. Playing it a hospital.'],3,'O modelo apresenta frases completas, lugar e equipamento.'),
+];
+
 const EXAM_YEARS = [
   {
     year: '2026',
@@ -658,6 +776,32 @@ const EXAM_YEARS = [
           {key:'pontuacao', title:'Fase Pontuação', emoji:'❗', description:'Sentido, entonação, perguntas, emoções e falas de personagens.', count:16, includeAreas:['Pontuação']},
           {key:'all', title:'Simulado Final', emoji:'🎯', description:'Mistura todos os assuntos do roteiro de Português.', count:30, includeAreas:'all'}
         ]
+      },
+      {
+        id: 'ingles-2026-08-20',
+        subject: 'Inglês',
+        icon: '🇬🇧',
+        teacher: 'Roteiro de estudo',
+        term: '2º trimestre',
+        status: 'Completa',
+        assessmentDate: '20 de agosto de 2026',
+        assessmentShortDate: '20/08/2026',
+        assessmentStatus: 'Próxima avaliação',
+        areasLabel: 'Where We Live, Sports Center, listening e writing',
+        intro: 'Revisão interativa para a prova de Inglês do 2º trimestre, marcada para 20 de agosto de 2026.',
+        description: 'Conteúdo organizado a partir do roteiro de estudo e das páginas fotografadas do livro, com treino de vocabulário, estruturas, leitura, escrita, gráfico e escuta em inglês.',
+        topics: 'Conteúdo coberto: lugares da cidade, Does nas perguntas e respostas, next to, behind, in front of e between, esportes e equipamentos, like + -ing, leitura de informações específicas, interpretação de gráfico e texto sobre o esporte favorito.',
+        studyPlan: 'Comece pelos cards e flashcards. Faça Lugares e Preposições, depois Sports e -ing. Use fones na fase Listening e escute cada frase duas vezes. Termine com Leitura, Gráfico e Escrita e com o Simulado Final.',
+        lessons: ENGLISH_LESSONS,
+        questions: ENGLISH_QUESTIONS,
+        flashcards: ENGLISH_FLASHCARDS,
+        modes: [
+          {key:'lugares', title:'Fase Lugares e Preposições', emoji:'🏙️', description:'Vocabulário da cidade, Does e localização.', count:18, includeAreas:['Lugares','Does','Preposições']},
+          {key:'esportes', title:'Fase Sports e -ing', emoji:'🏅', description:'Esportes, equipamentos e atividades com -ing.', count:18, includeAreas:['Esportes','-ing']},
+          {key:'listening', title:'Fase Listening', emoji:'🎧', description:'Escute frases em inglês e identifique o que foi dito.', count:6, includeAreas:'all', onlyAudio:true},
+          {key:'leitura', title:'Fase Leitura, Gráfico e Escrita', emoji:'📊', description:'Informações específicas, gráfico e parágrafo sobre esporte favorito.', count:8, includeAreas:['Leitura','Gráfico','Escrita']},
+          {key:'all', title:'Simulado Final', emoji:'🎯', description:'Mistura todos os conteúdos indicados no roteiro de Inglês.', count:30, includeAreas:'all'}
+        ]
       }
     ]
   }
@@ -665,6 +809,21 @@ const EXAM_YEARS = [
 
 let selectedYear=EXAM_YEARS[0], activeExam=selectedYear.exams[0];
 let current=[], idx=0, selected=null, lives=3, points=0, mistakes=[], lastMode='all', lastCount=25, locked=false;
+
+function stopQuestionAudio() {
+  if('speechSynthesis' in window) window.speechSynthesis.cancel();
+}
+
+function listenQuestion() {
+  const q=current[idx];
+  if(!q || !q.audio || !('speechSynthesis' in window)) return;
+  stopQuestionAudio();
+  const utterance=new SpeechSynthesisUtterance(q.audio);
+  utterance.lang='en-US';
+  utterance.rate=0.84;
+  utterance.pitch=1;
+  window.speechSynthesis.speak(utterance);
+}
 
 function shuffle(arr) { return [...arr].sort(()=>Math.random()-0.5); }
 function hideAll() { ['yearSelect','examSelect','home','lessons','flashcards','game','end'].forEach(id=>document.getElementById(id).classList.add('hidden')); }
@@ -756,6 +915,7 @@ function startGame(modeKey,count) {
   lastMode=mode.key; lastCount=count || mode.count;
   hideAll(); document.getElementById('game').classList.remove('hidden');
   let pool = mode.includeAreas==='all' ? activeExam.questions : activeExam.questions.filter(q=>mode.includeAreas.includes(q.area) || q.area==='Misto');
+  if(mode.onlyAudio) pool=pool.filter(q=>q.audio);
   current = shuffle(pool).slice(0, Math.min(lastCount, pool.length));
   idx=0; lives=3; points=0; mistakes=[]; selected=null; locked=false; renderQ(); window.scrollTo(0,0);
 }
@@ -766,6 +926,7 @@ function startFinalGame() {
 }
 
 function renderQ() {
+  stopQuestionAudio();
   selected=null; locked=false;
   const q=current[idx];
   document.getElementById('progress').style.width = `${Math.round((idx/current.length)*100)}%`;
@@ -783,6 +944,8 @@ function renderQ() {
   });
   document.getElementById('feedback').className='feedback';
   document.getElementById('feedback').textContent='';
+  const listenBtn=document.getElementById('listenBtn');
+  listenBtn.style.display=q.audio && 'speechSynthesis' in window ? 'inline-block' : 'none';
   document.getElementById('checkBtn').style.display='inline-block';
   document.getElementById('nextBtn').style.display='none';
 }
