@@ -700,6 +700,133 @@ const ENGLISH_QUESTIONS = [
   englishQuestion('en-060','Escrita','Favorite sport','Which is the best short paragraph?','Basketball is my favorite sport. You play it on a court. You need a ball and a net.',['Basketball favorite. Court ball net.','My favorite sport basketball it play.','Basketball is my favorite sport. Playing it a hospital.'],3,'O modelo apresenta frases completas, lugar e equipamento.'),
 ];
 
+const MATH_LESSONS = [
+  {area:'Subtração', title:'Unidades, dezenas e centenas', emoji:'🔢', text:'Nos números, cada algarismo tem um valor. Em 371, há 3 centenas, 7 dezenas e 1 unidade. Alinhe unidade com unidade, dezena com dezena e centena com centena.'},
+  {area:'Subtração', title:'Quando é preciso reagrupar', emoji:'🔁', text:'Em 94 − 79, não podemos tirar 9 unidades de 4. Trocamos 1 dezena por 10 unidades: ficam 8 dezenas e 14 unidades. Então, 14 − 9 = 5 e 8 − 7 = 1. Resultado: 15.'},
+  {area:'Subtração', title:'Troca de uma centena', emoji:'💯', text:'Se faltarem dezenas, uma centena pode ser trocada por 10 dezenas. Em 371 − 193, fazemos as trocas necessárias e encontramos 178.'},
+  {area:'Subtração', title:'Subtração por decomposição', emoji:'🧱', text:'Também podemos decompor: 94 = 80 + 14 e 79 = 70 + 9. Depois calculamos 14 − 9 e 80 − 70. Essa estratégia mostra por que o reagrupamento funciona.'},
+  {area:'Subtração', title:'Conferindo a resposta', emoji:'✅', text:'A adição ajuda a conferir uma subtração. Se 94 − 79 = 15, então 79 + 15 deve ser 94. Faça também uma estimativa para perceber respostas muito grandes ou pequenas.'},
+  {area:'Subtração', title:'Diferença e quanto falta', emoji:'⚖️', text:'Subtrair pode significar tirar, descobrir quanto sobrou, comparar duas quantidades ou saber quanto falta para chegar a um total.'},
+
+  {area:'Multiplicação', title:'Adição de parcelas iguais', emoji:'➕', text:'Multiplicar é uma forma rápida de somar parcelas iguais. Quatro grupos de 5 formam 5 + 5 + 5 + 5 = 20, que também escrevemos 4 × 5 = 20.'},
+  {area:'Multiplicação', title:'Fatores e produto', emoji:'✖️', text:'Em 4 × 5 = 20, os números 4 e 5 são fatores. O resultado 20 é o produto.'},
+  {area:'Multiplicação', title:'Grupos e elementos', emoji:'🟠', text:'Em 3 × 6, há 3 grupos com 6 elementos em cada grupo. A adição correspondente é 6 + 6 + 6 = 18.'},
+  {area:'Multiplicação', title:'Linhas e colunas', emoji:'▦', text:'Uma organização retangular ajuda a contar. Quatro linhas com 9 quadradinhos formam 4 × 9 = 36. Também podemos ver 9 colunas com 4: 9 × 4 = 36.'},
+  {area:'Multiplicação', title:'Na reta numérica', emoji:'➡️', text:'Multiplicar também pode ser dar saltos iguais. Para 4 × 3, damos 4 saltos de 3 e chegamos a 12.'},
+
+  {area:'Sólidos geométricos', title:'Figuras planas e sólidos', emoji:'📐', text:'Quadrado, retângulo, triângulo e círculo são figuras planas. Cubo, bloco retangular, pirâmide, cilindro, cone e esfera são sólidos geométricos.'},
+  {area:'Sólidos geométricos', title:'Faces, arestas e vértices', emoji:'🔷', text:'Face é uma superfície plana do poliedro. Aresta é o encontro de duas faces. Vértice é o encontro de arestas, como uma ponta do sólido.'},
+  {area:'Sólidos geométricos', title:'Cubo', emoji:'🧊', text:'O cubo tem 6 faces quadradas iguais, 12 arestas e 8 vértices. Um dado e alguns blocos de montar lembram um cubo.'},
+  {area:'Sólidos geométricos', title:'Bloco retangular', emoji:'📦', text:'O bloco retangular, ou paralelepípedo, tem 6 faces, 12 arestas e 8 vértices. Suas faces opostas são retângulos iguais.'},
+  {area:'Sólidos geométricos', title:'Pirâmides e suas bases', emoji:'🔺', text:'A pirâmide tem uma base plana e faces laterais triangulares que se encontram em um vértice. O nome depende da base: triangular, quadrada, pentagonal ou hexagonal.'},
+  {area:'Sólidos geométricos', title:'Pirâmide de base triangular', emoji:'🔻', text:'A pirâmide de base triangular tem 4 faces, 6 arestas e 4 vértices. Sua planificação é formada por 4 triângulos.'},
+  {area:'Sólidos geométricos', title:'Pirâmide de base quadrada', emoji:'🏕️', text:'A pirâmide de base quadrada tem 5 faces, 8 arestas e 5 vértices: 1 base quadrada e 4 faces triangulares.'},
+  {area:'Sólidos geométricos', title:'Pirâmide de base pentagonal', emoji:'🔺', text:'A pirâmide de base pentagonal tem 6 faces, 10 arestas e 6 vértices: 1 base pentagonal e 5 faces triangulares.'},
+  {area:'Sólidos geométricos', title:'Cilindro', emoji:'🥫', text:'O cilindro tem duas bases circulares idênticas e uma superfície arredondada. Sua planificação mostra 2 círculos e 1 retângulo.'},
+  {area:'Sólidos geométricos', title:'Cone', emoji:'🍦', text:'O cone tem uma base circular, uma superfície arredondada e um vértice. Um funil e uma casquinha de sorvete lembram um cone.'},
+  {area:'Sólidos geométricos', title:'Esfera', emoji:'⚽', text:'A esfera tem apenas superfície arredondada. Ela não tem base plana nem vértice e pode rolar em todas as direções. Uma bola lembra uma esfera.'},
+  {area:'Sólidos geométricos', title:'Planificação', emoji:'✂️', text:'Planificação é o molde aberto de um sólido. Ao dobrar o molde, as figuras planas se encontram e formam o sólido geométrico.'},
+  {area:'Sólidos geométricos', title:'Superfícies planas e arredondadas', emoji:'🧩', text:'Cubo, bloco e pirâmide têm somente superfícies planas. Cilindro e cone têm partes planas e arredondadas. A esfera tem somente superfície arredondada.'},
+
+  {area:'Problemas', title:'Entenda antes de calcular', emoji:'🧠', text:'Leia o problema, circule os dados e descubra o que a pergunta quer. Só depois escolha a operação e registre a resposta com a unidade correta.'},
+  {area:'Problemas', title:'Escolhendo a operação', emoji:'🧮', text:'Use adição para juntar, subtração para tirar ou comparar e multiplicação para vários grupos com a mesma quantidade.'},
+  {area:'Problemas', title:'Problemas com mais de uma etapa', emoji:'🪜', text:'Alguns problemas pedem duas contas. Resolva uma etapa por vez, guarde o resultado intermediário e confira se a resposta final faz sentido.'},
+
+  {area:'Dobro e triplo', title:'Dobro', emoji:'2️⃣', text:'Dobro é duas vezes a mesma quantidade. O dobro de 7 é 7 + 7 = 14, ou 2 × 7 = 14.'},
+  {area:'Dobro e triplo', title:'Triplo', emoji:'3️⃣', text:'Triplo é três vezes a mesma quantidade. O triplo de 6 é 6 + 6 + 6 = 18, ou 3 × 6 = 18.'},
+  {area:'Dobro e triplo', title:'Voltando à quantidade inicial', emoji:'↩️', text:'Se 18 é o dobro de uma quantidade, podemos repartir 18 em 2 partes iguais: a quantidade inicial é 9.'},
+  {area:'Dobro e triplo', title:'Dobro e triplo em problemas', emoji:'🎒', text:'Procure as palavras dobro e triplo, identifique a quantidade inicial e multiplique por 2 ou por 3. Depois escreva uma frase respondendo ao problema.'}
+];
+
+const MATH_FLASHCARDS = [
+  ['O que é reagrupamento?','É trocar 1 centena por 10 dezenas ou 1 dezena por 10 unidades para poder calcular.'],
+  ['94 − 79','15'], ['371 − 193','178'], ['Como conferir uma subtração?','Some a diferença ao número que foi retirado.'],
+  ['Subtrair pode indicar...','tirar, comparar, descobrir quanto sobrou ou quanto falta.'],
+  ['4 grupos de 5','5 + 5 + 5 + 5 = 20; 4 × 5 = 20.'], ['Fatores','Os números que são multiplicados.'], ['Produto','O resultado de uma multiplicação.'],
+  ['3 × 6','3 grupos de 6; 6 + 6 + 6 = 18.'], ['4 linhas de 9','4 × 9 = 36.'],
+  ['Face','Uma superfície plana de um poliedro.'], ['Aresta','O encontro de duas faces.'], ['Vértice','O encontro de arestas; uma ponta do sólido.'],
+  ['Cubo','6 faces quadradas, 12 arestas e 8 vértices.'], ['Bloco retangular','6 faces, 12 arestas e 8 vértices.'],
+  ['Pirâmide triangular','4 faces, 6 arestas e 4 vértices.'], ['Pirâmide quadrada','5 faces, 8 arestas e 5 vértices.'],
+  ['Pirâmide pentagonal','6 faces, 10 arestas e 6 vértices.'], ['Cilindro','2 bases circulares e 1 superfície arredondada.'],
+  ['Planificação do cilindro','2 círculos e 1 retângulo.'], ['Cone','1 base circular, 1 superfície arredondada e 1 vértice.'],
+  ['Esfera','Só tem superfície arredondada; não tem base nem vértice.'], ['Planificação','O molde aberto de um sólido geométrico.'],
+  ['Qual sólido lembra uma lata?','Cilindro.'], ['Qual sólido lembra uma casquinha?','Cone.'], ['Qual sólido lembra uma bola?','Esfera.'],
+  ['Dobro de 8','16'], ['Triplo de 7','21'], ['18 é o dobro de...','9'], ['24 é o triplo de...','8']
+];
+
+function mathQuestion(id, area, topic, q, correct, distractors, slot, exp) {
+  const opts=[...distractors];
+  opts.splice(slot,0,correct);
+  return {id, area, topic, q, opts, a:slot, exp};
+}
+
+const MATH_QUESTIONS = [
+  mathQuestion('ma-001','Subtração','Reagrupamento','Quanto é 94 − 79?','15',['13','23','25'],0,'Trocamos 1 dezena: 14 − 9 = 5 e 8 − 7 = 1.'),
+  mathQuestion('ma-002','Subtração','Reagrupamento','Em 71 − 9, por que trocamos 1 dezena?','Porque 1 unidade não é suficiente para tirar 9.',['Porque 7 dezenas são menores que 1 dezena.','Porque toda subtração exige duas trocas.','Porque o resultado precisa terminar em 9.'],1,'A troca transforma 71 em 6 dezenas e 11 unidades.'),
+  mathQuestion('ma-003','Subtração','Cálculo','Quanto é 71 − 9?','62',['60','64','80'],2,'Depois da troca, 11 − 9 = 2 e restam 6 dezenas.'),
+  mathQuestion('ma-004','Subtração','Cálculo','Quanto é 44 − 36?','8',['12','18','22'],3,'Trocamos 1 dezena: 14 − 6 = 8 e 3 − 3 = 0.'),
+  mathQuestion('ma-005','Subtração','Cálculo','Quanto é 82 − 57?','25',['15','35','39'],0,'12 − 7 = 5 e 7 − 5 = 2.'),
+  mathQuestion('ma-006','Subtração','Centenas','Quanto é 371 − 193?','178',['168','188','278'],1,'As trocas nas unidades e dezenas levam ao resultado 178.'),
+  mathQuestion('ma-007','Subtração','Centenas','Quanto é 302 − 59?','243',['253','343','361'],2,'Regroupamos uma centena em dezenas e uma dezena em unidades.'),
+  mathQuestion('ma-008','Subtração','Comparação','Ana fez 172 pontos e Beto fez 136. Quantos pontos Ana fez a mais?','36',['26','34','46'],3,'A diferença é 172 − 136 = 36.'),
+  mathQuestion('ma-009','Subtração','Conferência','Qual adição confere que 55 − 27 = 28?','27 + 28 = 55',['55 + 27 = 82','28 + 55 = 83','55 + 28 = 27'],0,'Na conferência, somamos a diferença ao valor retirado.'),
+  mathQuestion('ma-010','Subtração','Significados','Qual situação pede uma subtração?','Descobrir quantos livros sobraram depois de emprestar alguns.',['Juntar livros de duas caixas.','Contar 4 caixas com 5 livros em cada.','Repartir igualmente um desenho.'],1,'Sobraram indica retirar uma quantidade do total.'),
+  mathQuestion('ma-011','Subtração','Estimativa','Sem fazer a conta exata, 84 − 68 está mais perto de...','20',['2','10','80'],2,'O resultado exato é 16: fica a 4 de 20 e a 6 de 10, então está mais perto de 20.'),
+  mathQuestion('ma-012','Subtração','Decomposição','Qual decomposição ajuda a calcular 94 − 79 depois da troca?','(80 + 14) − (70 + 9)',['(90 + 4) − (7 + 9)','(9 + 4) − (70 + 90)','(100 + 4) − (80 + 9)'],3,'94 pode ser reagrupado como 80 + 14.'),
+  mathQuestion('ma-013','Subtração','Valor posicional','Ao trocar 1 centena, quantas dezenas recebemos?','10 dezenas',['1 dezena','5 dezenas','100 dezenas'],0,'Uma centena vale 10 dezenas.'),
+  mathQuestion('ma-014','Subtração','Valor posicional','Ao trocar 1 dezena, quantas unidades recebemos?','10 unidades',['1 unidade','20 unidades','100 unidades'],1,'Uma dezena vale 10 unidades.'),
+
+  mathQuestion('ma-015','Multiplicação','Parcelas iguais','Qual multiplicação representa 6 + 6 + 6?','3 × 6',['6 × 6','3 + 6','6 − 3'],2,'São 3 parcelas iguais a 6.'),
+  mathQuestion('ma-016','Multiplicação','Parcelas iguais','Quanto é 5 + 5 + 5 + 5?','20',['10','15','25'],3,'Quatro grupos de 5 formam 4 × 5 = 20.'),
+  mathQuestion('ma-017','Multiplicação','Grupos','Há 4 sacolas com 3 maçãs em cada uma. Quantas maçãs há?','12',['7','10','16'],0,'4 × 3 = 3 + 3 + 3 + 3 = 12.'),
+  mathQuestion('ma-018','Multiplicação','Fatores','Em 4 × 5 = 20, quais são os fatores?','4 e 5',['5 e 20','4 e 20','Somente 20'],1,'Fatores são os números multiplicados.'),
+  mathQuestion('ma-019','Multiplicação','Produto','Em 7 × 2 = 14, qual é o produto?','14',['2','7','9'],2,'Produto é o resultado da multiplicação.'),
+  mathQuestion('ma-020','Multiplicação','Linhas e colunas','Uma figura tem 4 linhas com 9 quadradinhos em cada. Quantos quadradinhos há?','36',['13','32','45'],3,'4 × 9 = 36.'),
+  mathQuestion('ma-021','Multiplicação','Reta numérica','Quatro saltos de 3 na reta numérica chegam a...','12',['7','9','15'],0,'3 + 3 + 3 + 3 = 12.'),
+  mathQuestion('ma-022','Multiplicação','Parcelas iguais','Qual adição representa 5 × 4?','4 + 4 + 4 + 4 + 4',['5 + 5 + 5 + 5','5 + 4','4 + 5 + 4'],1,'São 5 grupos com 4 elementos em cada.'),
+  mathQuestion('ma-023','Multiplicação','Cálculo','Quanto é 14 × 2?','28',['16','24','32'],2,'14 + 14 = 28.'),
+  mathQuestion('ma-024','Multiplicação','Cálculo','Quanto é 3 × 8?','24',['11','21','32'],3,'8 + 8 + 8 = 24.'),
+  mathQuestion('ma-025','Multiplicação','Situação','Qual situação representa 2 × 9?','2 caixas com 9 lápis em cada.',['2 lápis e mais 9 caixas vazias.','9 lápis retirados de 2.','Uma caixa com 2 lápis e outra com 7.'],0,'Multiplicação representa grupos com a mesma quantidade.'),
+  mathQuestion('ma-026','Multiplicação','Comutatividade','Qual conta tem o mesmo produto que 4 × 9?','9 × 4',['9 + 4','9 − 4','4 × 5'],1,'Trocar a ordem dos fatores não muda o produto.'),
+
+  mathQuestion('ma-027','Sólidos geométricos','Classificação','Qual alternativa apresenta somente sólidos geométricos?','Cubo, cone e esfera',['Quadrado, círculo e triângulo','Cubo, quadrado e retângulo','Círculo, cilindro e triângulo'],2,'Cubo, cone e esfera ocupam espaço e são sólidos.'),
+  mathQuestion('ma-028','Sólidos geométricos','Elementos','O encontro de duas faces de um poliedro chama-se...','aresta',['base','círculo','vértice'],3,'Aresta é a linha onde duas faces se encontram.'),
+  mathQuestion('ma-029','Sólidos geométricos','Elementos','O encontro de arestas, formando uma ponta, chama-se...','vértice',['face','base','superfície arredondada'],0,'Vértice é o encontro de arestas.'),
+  mathQuestion('ma-030','Sólidos geométricos','Cubo','Quantas faces tem um cubo?','6',['4','8','12'],1,'O cubo tem 6 faces quadradas iguais.'),
+  mathQuestion('ma-031','Sólidos geométricos','Cubo','Quantas arestas tem um cubo?','12',['6','8','14'],2,'O cubo tem 12 arestas.'),
+  mathQuestion('ma-032','Sólidos geométricos','Cubo','Quantos vértices tem um cubo?','8',['4','6','12'],3,'O cubo tem 8 vértices.'),
+  mathQuestion('ma-033','Sólidos geométricos','Bloco retangular','Qual é a quantidade de faces, arestas e vértices de um bloco retangular?','6 faces, 12 arestas e 8 vértices.',['6 faces, 8 arestas e 12 vértices.','8 faces, 12 arestas e 6 vértices.','4 faces, 6 arestas e 4 vértices.'],0,'O bloco retangular tem as mesmas quantidades de elementos do cubo.'),
+  mathQuestion('ma-034','Sólidos geométricos','Pirâmide','O nome de uma pirâmide depende...','do formato de sua base.',['de sua cor.','de sua altura apenas.','do material usado.'],1,'A base pode ser triangular, quadrada, pentagonal ou de outro polígono.'),
+  mathQuestion('ma-035','Sólidos geométricos','Pirâmide triangular','Uma pirâmide de base triangular tem...','4 faces, 6 arestas e 4 vértices.',['5 faces, 8 arestas e 5 vértices.','6 faces, 10 arestas e 6 vértices.','6 faces, 12 arestas e 8 vértices.'],2,'Ela é formada por 4 faces triangulares.'),
+  mathQuestion('ma-036','Sólidos geométricos','Pirâmide quadrada','Uma pirâmide de base quadrada tem...','5 faces, 8 arestas e 5 vértices.',['4 faces, 6 arestas e 4 vértices.','6 faces, 12 arestas e 8 vértices.','6 faces, 10 arestas e 6 vértices.'],3,'São 1 face quadrada e 4 faces triangulares.'),
+  mathQuestion('ma-037','Sólidos geométricos','Pirâmide pentagonal','Quantas faces tem uma pirâmide de base pentagonal?','6',['5','10','12'],0,'Há 1 base pentagonal e 5 faces laterais triangulares.'),
+  mathQuestion('ma-038','Sólidos geométricos','Cilindro','Quais figuras aparecem na planificação de um cilindro?','2 círculos e 1 retângulo.',['1 círculo e 1 triângulo.','2 quadrados e 1 círculo.','Somente 1 retângulo.'],1,'Os círculos formam as bases e o retângulo forma a superfície lateral.'),
+  mathQuestion('ma-039','Sólidos geométricos','Cilindro','Qual objeto lembra um cilindro?','Uma lata de alimentos.',['Uma bola.','Uma casquinha de sorvete.','Um dado.'],2,'A lata tem duas bases circulares e uma superfície arredondada.'),
+  mathQuestion('ma-040','Sólidos geométricos','Cone','Qual descrição corresponde ao cone?','1 base circular, 1 superfície arredondada e 1 vértice.',['2 bases circulares e nenhum vértice.','6 faces quadradas e 8 vértices.','Somente superfície arredondada.'],3,'Esses são os elementos destacados no cone.'),
+  mathQuestion('ma-041','Sólidos geométricos','Esfera','Qual objeto lembra uma esfera?','Uma bola.',['Uma caixa de sapatos.','Uma lata.','Um funil.'],0,'A bola tem formato esférico.'),
+  mathQuestion('ma-042','Sólidos geométricos','Esfera','Qual frase sobre a esfera está correta?','Tem somente superfície arredondada.',['Tem duas bases circulares.','Tem uma base e um vértice.','Tem seis faces quadradas.'],1,'A esfera não tem base plana nem vértice.'),
+  mathQuestion('ma-043','Sólidos geométricos','Superfícies','Quais sólidos têm partes planas e arredondadas?','Cilindro e cone.',['Cubo e pirâmide.','Esfera e cubo.','Bloco retangular e pirâmide.'],2,'Cilindro e cone combinam base plana com superfície arredondada.'),
+  mathQuestion('ma-044','Sólidos geométricos','Planificação','O que é a planificação de um sólido?','Seu molde aberto, formado por figuras planas.',['Uma fotografia do sólido montado.','Apenas o nome do sólido.','Uma conta de multiplicação.'],3,'Ao dobrar a planificação, montamos o sólido.'),
+
+  mathQuestion('ma-045','Problemas','Subtração','Lia tinha 85 figurinhas e deu 27. Com quantas ficou?','58',['52','62','112'],0,'85 − 27 = 58.'),
+  mathQuestion('ma-046','Problemas','Adição','Uma turma arrecadou 128 livros na segunda e 147 na terça. Quantos livros arrecadou ao todo?','275',['265','285','319'],1,'Ao todo indica juntar: 128 + 147 = 275.'),
+  mathQuestion('ma-047','Problemas','Multiplicação','Há 6 mesas com 4 crianças em cada. Quantas crianças há?','24',['10','20','28'],2,'São 6 grupos de 4: 6 × 4 = 24.'),
+  mathQuestion('ma-048','Problemas','Comparação','Bia tem 63 adesivos e Caio tem 48. Quantos adesivos Bia tem a mais?','15',['11','21','25'],3,'63 − 48 = 15.'),
+  mathQuestion('ma-049','Problemas','Duas etapas','Havia 36 carrinhos. Chegaram mais 18 e depois 20 foram vendidos. Quantos restaram?','34',['14','38','54'],0,'Primeiro 36 + 18 = 54; depois 54 − 20 = 34.'),
+  mathQuestion('ma-050','Problemas','Escolha da operação','A palavra “ao todo”, quando juntamos quantidades, costuma indicar...','adição.',['subtração.','divisão.','comparação sem conta.'],1,'Ao todo geralmente pede a soma das partes.'),
+  mathQuestion('ma-051','Problemas','Escolha da operação','A expressão “quantos a mais” costuma indicar...','subtração para comparar.',['adição de parcelas diferentes.','multiplicação por 10.','nenhuma operação.'],2,'Para descobrir a diferença, subtraímos a menor quantidade da maior.'),
+  mathQuestion('ma-052','Problemas','Resposta completa','Depois de calcular um problema, o que devemos fazer?','Conferir e escrever uma resposta com a unidade pedida.',['Apagar os dados.','Trocar a operação sem motivo.','Escrever somente um número aleatório.'],3,'A frase-resposta mostra o que o resultado significa.'),
+
+  mathQuestion('ma-053','Dobro e triplo','Dobro','Qual é o dobro de 8?','16',['10','18','24'],0,'8 + 8 = 16.'),
+  mathQuestion('ma-054','Dobro e triplo','Triplo','Qual é o triplo de 7?','21',['14','24','28'],1,'7 + 7 + 7 = 21.'),
+  mathQuestion('ma-055','Dobro e triplo','Dobro','Qual conta representa o dobro de 12?','2 × 12',['3 × 12','12 − 2','12 + 2'],2,'Dobro é multiplicar por 2.'),
+  mathQuestion('ma-056','Dobro e triplo','Triplo','Qual adição representa o triplo de 9?','9 + 9 + 9',['9 + 3','9 + 9','3 + 3 + 3'],3,'Triplo são três parcelas iguais à quantidade inicial.'),
+  mathQuestion('ma-057','Dobro e triplo','Problema','Cada pacote tem 6 biscoitos. O triplo dessa quantidade é...','18 biscoitos.',['9 biscoitos.','12 biscoitos.','24 biscoitos.'],0,'3 × 6 = 18.'),
+  mathQuestion('ma-058','Dobro e triplo','Quantidade inicial','18 é o dobro de qual número?','9',['6','8','36'],1,'9 + 9 = 18.'),
+  mathQuestion('ma-059','Dobro e triplo','Quantidade inicial','24 é o triplo de qual número?','8',['6','12','72'],2,'8 + 8 + 8 = 24.'),
+  mathQuestion('ma-060','Dobro e triplo','Problema','João tem 5 carrinhos e Marina tem o triplo. Quantos carrinhos Marina tem?','15',['8','10','20'],3,'3 × 5 = 15.')
+];
+
 const EXAM_YEARS = [
   {
     year: '2026',
@@ -801,6 +928,33 @@ const EXAM_YEARS = [
           {key:'listening', title:'Fase Listening', emoji:'🎧', description:'Escute frases em inglês e identifique o que foi dito.', count:6, includeAreas:'all', onlyAudio:true},
           {key:'leitura', title:'Fase Leitura, Gráfico e Escrita', emoji:'📊', description:'Informações específicas, gráfico e parágrafo sobre esporte favorito.', count:8, includeAreas:['Leitura','Gráfico','Escrita']},
           {key:'all', title:'Simulado Final', emoji:'🎯', description:'Mistura todos os conteúdos indicados no roteiro de Inglês.', count:30, includeAreas:'all'}
+        ]
+      },
+      {
+        id: 'matematica-2026-08-24',
+        subject: 'Matemática',
+        icon: '🧮',
+        teacher: 'Roteiro de estudo',
+        term: '2º trimestre',
+        status: 'Completa',
+        assessmentDate: '24 de agosto de 2026',
+        assessmentShortDate: '24/08/2026',
+        assessmentStatus: 'Próxima avaliação',
+        areasLabel: 'Subtração, multiplicação, sólidos, problemas, dobro e triplo',
+        intro: 'Revisão interativa para a prova de Matemática do 2º trimestre, marcada para 24 de agosto de 2026.',
+        description: 'Conteúdo organizado a partir do roteiro de estudo e das páginas fotografadas do livro, com explicações e questões adequadas ao 3º ano do Ensino Fundamental.',
+        topics: 'Conteúdo coberto: subtração com reagrupamento; multiplicação como adição de parcelas iguais; sólidos geométricos, seus elementos e planificações; situações-problema com adição, subtração e multiplicação; dobro e triplo.',
+        studyPlan: 'Comece pelos cards e flashcards. Faça primeiro Subtração e Multiplicação, depois Sólidos Geométricos. Termine com Problemas, Dobro e Triplo e o Simulado Final. Ao errar uma conta, refaça-a no papel antes de continuar.',
+        lessons: MATH_LESSONS,
+        questions: MATH_QUESTIONS,
+        flashcards: MATH_FLASHCARDS,
+        modes: [
+          {key:'subtracao', title:'Fase Subtração', emoji:'➖', description:'Valor posicional, trocas, cálculo, comparação e conferência.', count:12, includeAreas:['Subtração']},
+          {key:'multiplicacao', title:'Fase Multiplicação', emoji:'✖️', description:'Parcelas iguais, grupos, fatores, produto, linhas e colunas.', count:12, includeAreas:['Multiplicação']},
+          {key:'solidos', title:'Fase Sólidos Geométricos', emoji:'🧊', description:'Faces, arestas, vértices, bases, superfícies e planificações.', count:18, includeAreas:['Sólidos geométricos']},
+          {key:'problemas', title:'Fase Situações-Problema', emoji:'🧠', description:'Escolha da operação e problemas de uma ou duas etapas.', count:8, includeAreas:['Problemas']},
+          {key:'dobro-triplo', title:'Fase Dobro e Triplo', emoji:'2️⃣', description:'Duas ou três vezes uma quantidade e problemas do cotidiano.', count:8, includeAreas:['Dobro e triplo']},
+          {key:'all', title:'Simulado Final', emoji:'🎯', description:'Mistura todos os tópicos indicados no roteiro de Matemática.', count:30, includeAreas:'all'}
         ]
       }
     ]
