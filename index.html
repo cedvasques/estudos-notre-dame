@@ -93,12 +93,11 @@ p{line-height:1.38;margin:8px 0}
 .barLayout{display:grid;grid-template-columns:110px minmax(0,1fr);margin:0 10px 0 0;align-items:center}.barLabel{font-size:13px;padding:12px 8px 12px 0;text-align:right}.chartBarTrack{height:54px;display:flex;align-items:center;border-left:1px solid #94a3b8;border-right:1px solid #cbd5e1;background:repeating-linear-gradient(to right,#cbd5e1 0 1px,transparent 1px var(--grid-size))}.chartBarFill{height:30px}
 .chartXTicks{position:relative;height:23px;margin:0 10px 0 110px;font-size:13px;border-top:1px solid #94a3b8}.chartXTicks span{position:absolute;transform:translateX(-50%);top:2px;white-space:nowrap}
 .chartLegend{display:flex;gap:14px;flex-wrap:wrap}.chartKey{display:inline-block;width:14px;height:14px;margin-right:5px;border:1px solid #475569}
-.studyMaterial details{margin-top:12px}.studyMaterial summary,#moduleCoverage summary{cursor:pointer;font-weight:800}
+.studyMaterial details{margin-top:12px}.studyMaterial summary{cursor:pointer;font-weight:800}
 .studyTable{width:100%;border-collapse:collapse;margin-top:10px;font-size:15px}.studyTable th,.studyTable td{padding:7px;border:1px solid #cbd5e1;text-align:left}
 .textComparison{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.textComparison article{background:white;border:1px solid #cbd5e1;border-radius:8px;padding:12px}
 .comicPanels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.comicPanel{background:white;border:2px solid #94a3b8;border-radius:8px;padding:12px}.comicFace{font-size:36px;text-align:center}.comicSpeech{border:1px solid #64748b;border-radius:14px;padding:10px;background:#fffbeb}
 .pictureRow{display:flex;gap:14px;align-items:center;margin:10px 0;flex-wrap:wrap}.pictureRow b{min-width:80px}.pictureSymbols{font-size:23px}
-#moduleCoverage{margin-top:16px;padding:14px;background:#f8fafc;border:1px solid var(--line);border-radius:8px}#moduleCoverage li{margin:9px 0}#moduleCoverage small{display:block;overflow-wrap:anywhere}
 #question{white-space:pre-line}.lesson:has(.studyMaterial){grid-column:1/-1}
 @media (max-width:640px){.studyMaterial{padding:10px;font-size:16px}.comicPanels{grid-template-columns:1fr}.studyFacts{grid-template-columns:1fr;gap:2px}.studyFacts dd{margin-bottom:10px}}
 @media (max-width:640px){
@@ -161,7 +160,6 @@ p{line-height:1.38;margin:8px 0}
       <span class="badge purple">Treino em formato de simulado</span>
     </div>
     <div class="grid homeButtons" id="homeButtons"></div>
-    <details id="moduleCoverage" class="hidden"></details>
   </section>
 
   <section id="lessons" class="hidden">
@@ -889,8 +887,8 @@ const EXAM_YEARS = [
         assessmentShortDate: '25/06/2026',
         assessmentStatus: 'Realizada',
         areasLabel: 'Plantas, sementes, germinação e solo',
-        intro: 'Revisão da avaliação de 25 de junho de 2026, baseada nas páginas fotografadas do material.',
-        description: 'Ferramenta de apoio ao estudo para a prova de Ciências da Natureza do Colégio Notre Dame Campinas, com questões no nível da turma do 3º ano e focadas no conteúdo enviado.',
+        intro: 'Revisão da avaliação de 25 de junho de 2026, com atividades sobre plantas e solo.',
+        description: 'Ferramenta de apoio ao estudo para a prova de Ciências da Natureza do Colégio Notre Dame Campinas, com questões no nível da turma do 3º ano.',
         topics: 'Conteúdo coberto: partes das plantas, flores, frutos, sementes, embrião, dispersão pelo vento, água e animais, germinação, ciclo de vida das plantas, solo, formação do solo, componentes, textura, cor, porosidade, permeabilidade e solo nas atividades humanas.',
         studyPlan: 'Leia os cards em voz alta. Depois faça as fases Plantas e Sementes, Germinação e Solo. Termine com o Simulado Final. Se errar, revise somente os cards do assunto marcado no fim.',
         lessons: NATURE_LESSONS,
@@ -900,7 +898,7 @@ const EXAM_YEARS = [
           {key:'plantas', title:'Fase Plantas e Sementes', emoji:'🌱', description:'Partes das plantas, frutos, sementes e dispersão.', count:16, includeAreas:['Plantas','Dispersão','Misto']},
           {key:'germinacao', title:'Fase Germinação', emoji:'🫘', description:'Embrião, condições para germinar, ciclo da planta e experimento dos copos.', count:12, includeAreas:['Germinação','Misto']},
           {key:'solo', title:'Fase Solo', emoji:'🟫', description:'O que é solo, formação, componentes, textura, cor, porosidade e permeabilidade.', count:16, includeAreas:['Solo','Misto']},
-          {key:'all', title:'Simulado Final', emoji:'🎯', description:'Mistura exatamente os temas enviados nas fotos.', count:25, includeAreas:'all'}
+          {key:'all', title:'Simulado Final', emoji:'🎯', description:'Mistura todos os assuntos da prova.', count:25, includeAreas:'all'}
         ]
       },
       {
@@ -915,7 +913,7 @@ const EXAM_YEARS = [
         assessmentStatus: 'Próxima avaliação',
         areasLabel: 'Leitura, narrador, adjetivos, substantivos e pontuação',
         intro: 'Revisão da avaliação de Português do 2º trimestre, marcada para 17 de agosto de 2026.',
-        description: 'Ferramenta de apoio ao estudo para a prova de Português do Colégio Notre Dame Campinas, com referência pedagógica da professora Miriam e atividades no nível do material enviado.',
+        description: 'Ferramenta de apoio ao estudo para a prova de Português do Colégio Notre Dame Campinas, com referência pedagógica da professora Miriam e atividades para o 3º ano.',
         topics: 'Conteúdo coberto: conto e interpretação, notícia, narrador-personagem e narrador-observador, adjetivos, gênero, número e grau do substantivo, pontuação, entonação e discurso direto.',
         studyPlan: 'Comece pelos cards e responda aos flashcards em voz alta antes de revelar. Depois faça uma fase por vez e termine com o Simulado Final. As perguntas de interpretação usam alternativas para permitir correção imediata.',
         lessons: PORTUGUESE_LESSONS,
@@ -926,7 +924,7 @@ const EXAM_YEARS = [
           {key:'linguagem', title:'Fase Narrador e Adjetivos', emoji:'🗣️', description:'Ponto de vista, primeira e terceira pessoa, descrição e concordância.', count:16, includeAreas:['Narrador','Adjetivo']},
           {key:'substantivos', title:'Fase Substantivos', emoji:'🔤', description:'Gênero, singular e plural, aumentativo e diminutivo.', count:20, includeAreas:['Gênero','Número','Grau']},
           {key:'pontuacao', title:'Fase Pontuação', emoji:'❗', description:'Sentido, entonação, perguntas, emoções e falas de personagens.', count:16, includeAreas:['Pontuação']},
-          {key:'all', title:'Simulado Final', emoji:'🎯', description:'Mistura todos os assuntos do roteiro de Português.', count:30, includeAreas:'all'}
+          {key:'all', title:'Simulado Final', emoji:'🎯', description:'Mistura todos os assuntos da prova de Português.', count:30, includeAreas:'all'}
         ]
       },
       {
@@ -941,7 +939,7 @@ const EXAM_YEARS = [
         assessmentStatus: 'Próxima avaliação',
         areasLabel: 'Where We Live, Sports Center, listening e writing',
         intro: 'Revisão interativa para a prova de Inglês do 2º trimestre, marcada para 20 de agosto de 2026.',
-        description: 'Conteúdo organizado a partir do roteiro de estudo e das páginas fotografadas do livro, com treino de vocabulário, estruturas, leitura, escrita, gráfico e escuta em inglês.',
+        description: 'Ferramenta de apoio ao estudo para a prova de Inglês do Colégio Notre Dame Campinas, com treino de vocabulário, estruturas, leitura, escrita, gráfico e escuta.',
         topics: 'Conteúdo coberto: lugares da cidade, Does nas perguntas e respostas, next to, behind, in front of e between, esportes e equipamentos, like + -ing, leitura de informações específicas, interpretação de gráfico e texto sobre o esporte favorito.',
         studyPlan: 'Comece pelos cards e flashcards. Faça Lugares e Preposições, depois Sports e -ing. Use fones na fase Listening e escute cada frase duas vezes. Termine com Leitura, Gráfico e Escrita e com o Simulado Final.',
         lessons: ENGLISH_LESSONS,
@@ -952,7 +950,7 @@ const EXAM_YEARS = [
           {key:'esportes', title:'Fase Sports e -ing', emoji:'🏅', description:'Esportes, equipamentos e atividades com -ing.', count:18, includeAreas:['Esportes','-ing']},
           {key:'listening', title:'Fase Listening', emoji:'🎧', description:'Escute frases em inglês e identifique o que foi dito.', count:6, includeAreas:'all', onlyAudio:true},
           {key:'leitura', title:'Fase Leitura, Gráfico e Escrita', emoji:'📊', description:'Informações específicas, gráfico e parágrafo sobre esporte favorito.', count:8, includeAreas:['Leitura','Gráfico','Escrita']},
-          {key:'all', title:'Simulado Final', emoji:'🎯', description:'Mistura todos os conteúdos indicados no roteiro de Inglês.', count:30, includeAreas:'all'}
+          {key:'all', title:'Simulado Final', emoji:'🎯', description:'Mistura todos os assuntos da prova de Inglês.', count:30, includeAreas:'all'}
         ]
       },
       {
@@ -967,7 +965,7 @@ const EXAM_YEARS = [
         assessmentStatus: 'Próxima avaliação',
         areasLabel: 'Subtração, multiplicação, sólidos, problemas, dobro e triplo',
         intro: 'Revisão interativa para a prova de Matemática do 2º trimestre, marcada para 24 de agosto de 2026.',
-        description: 'Conteúdo organizado a partir do roteiro de estudo e das páginas fotografadas do livro, com explicações e questões adequadas ao 3º ano do Ensino Fundamental.',
+        description: 'Ferramenta de apoio ao estudo para a prova de Matemática do Colégio Notre Dame Campinas, com explicações e questões adequadas ao 3º ano do Ensino Fundamental.',
         topics: 'Conteúdo coberto: subtração com reagrupamento; multiplicação como adição de parcelas iguais; sólidos geométricos, seus elementos e planificações; situações-problema com adição, subtração e multiplicação; dobro e triplo.',
         studyPlan: 'Comece pelos cards e flashcards. Faça primeiro Subtração e Multiplicação, depois Sólidos Geométricos. Termine com Problemas, Dobro e Triplo e o Simulado Final. Ao errar uma conta, refaça-a no papel antes de continuar.',
         lessons: MATH_LESSONS,
@@ -979,7 +977,7 @@ const EXAM_YEARS = [
           {key:'solidos', title:'Fase Sólidos Geométricos', emoji:'🧊', description:'Faces, arestas, vértices, bases, superfícies e planificações.', count:18, includeAreas:['Sólidos geométricos']},
           {key:'problemas', title:'Fase Situações-Problema', emoji:'🧠', description:'Escolha da operação e problemas de uma ou duas etapas.', count:8, includeAreas:['Problemas']},
           {key:'dobro-triplo', title:'Fase Dobro e Triplo', emoji:'2️⃣', description:'Duas ou três vezes uma quantidade e problemas do cotidiano.', count:8, includeAreas:['Dobro e triplo']},
-          {key:'all', title:'Simulado Final', emoji:'🎯', description:'Mistura todos os tópicos indicados no roteiro de Matemática.', count:30, includeAreas:'all'}
+          {key:'all', title:'Simulado Final', emoji:'🎯', description:'Mistura todos os assuntos da prova de Matemática.', count:30, includeAreas:'all'}
         ]
       }
     ]
@@ -1068,10 +1066,6 @@ function renderModuleHome() {
   activeExam.modes.forEach(mode=> {
     buttons.innerHTML += `<div class="card modeCard" onclick="startGame('${mode.key}',${mode.count})"><div class="kpi">${mode.emoji}</div><h2>${mode.title}</h2><p>${mode.description}</p></div>`;
   });
-  const coverage=document.getElementById('moduleCoverage');
-  coverage.classList.toggle('hidden', !activeExam.sourceGroups);
-  coverage.open=false;
-  coverage.innerHTML=activeExam.sourceGroups ? `<summary>Material conferido e assuntos cobertos</summary><p>${escapeStudyText(activeExam.sourceSummary)}</p><p>${activeExam.questions.length} questões · ${activeExam.lessons.length} cards · ${activeExam.flashcards.length} flashcards</p><ul>${activeExam.sourceGroups.map(group=>`<li><b>${escapeStudyText(group.label)}</b> · páginas ${escapeStudyText(group.pages)}<small>${group.files.map(escapeStudyText).join(', ')}</small></li>`).join('')}</ul>` : '';
 }
 
 function escapeStudyText(value) {

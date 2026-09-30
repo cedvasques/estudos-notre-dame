@@ -1,7 +1,4 @@
-/* Escopo conferido nas 36 fotos de Português_3o_trimestre.
- * As referências indicam habilidades; os exemplos abaixo são novos.
- * Inventário e cobertura: referencias/portugues-3-trimestre.json.
- */
+/* Atividades de Português do 3º trimestre. */
 const PT3_EXAM = (() => {
   const lessons = [];
   const flashcards = [];
@@ -219,22 +216,10 @@ const PT3_EXAM = (() => {
     term:'3º trimestre', status:'Completa', assessmentDate:'2 de outubro de 2026', assessmentShortDate:'02/10/2026', assessmentStatus:'Próxima avaliação',
     areasLabel:'Fichas, gráficos, textos e gramática',
     intro:'Português do 3º trimestre: entenda os conceitos e pratique com novos exemplos.',
-    description:'Revisão preparada a partir das 36 imagens do material enviado, com fichas, textos, gráficos e tirinhas criados para o treino.',
+    description:'Ferramenta de apoio ao estudo para a prova de Português do 3º trimestre do Colégio Notre Dame Campinas, com atividades de leitura, interpretação e gramática.',
     topics:'Conteúdo coberto: ficha técnica; leitura de gráficos; comparação com divulgação científica; adjetivos; gênero, número e grau dos substantivos; dicionário, sinônimos e retomadas; pronomes pessoais. Inclui interpretação, comparação e reescrita em novos contextos.',
     studyPlan:'Leia os cards e responda aos flashcards em voz alta antes de revelar. Faça uma fase por vez. Nos gráficos, comece pelo título, pela fonte e pela legenda. Termine com o simulado, que inclui todas as áreas, e revise as explicações dos erros.',
     lessons, flashcards, questions,
-    sourceSummary:'36 de 36 imagens lidas e conferidas visualmente. Os arquivos da pasta são idênticos aos 36 arquivos do ZIP.',
-    sourceGroups:[
-      {label:'Fichas técnicas e folclore',pages:'158–162 e 169–170',files:refs(1062,1063,1064,1065,1066,1067,1068)},
-      {label:'Gráficos e comparação de dados',pages:'170–174',files:refs(1068,1069,1070,1071,1072)},
-      {label:'Ficha e divulgação científica',pages:'180–181',files:refs(1073,1075)},
-      {label:'Adjetivos e interpretação',pages:'136–139 e 153–154',files:refs(1076,1077,1078,1079,1080,1081)},
-      {label:'Gênero do substantivo',pages:'69–72 e 89',files:refs(1082,1083,1084,1085,1086)},
-      {label:'Número do substantivo',pages:'100–102',files:refs(1087,1088,1089)},
-      {label:'Grau e sentidos no contexto',pages:'110–113',files:refs(1090,1091,1092,1093)},
-      {label:'Dicionário e retomadas',pages:'133–134',files:refs(1094,1095)},
-      {label:'Pronomes pessoais',pages:'175–177',files:refs(1096,1097,1098)}
-    ],
     modes:[
       {key:'fichas',title:'Fase Fichas e Textos',emoji:'🗂️',description:'Campos da ficha, leitura e comparação com divulgação científica.',count:16,includeAreas:['Ficha técnica','Textos informativos'],balanced:true},
       {key:'graficos',title:'Fase Gráficos',emoji:'📊',description:'Título, fonte, legenda, escala, barras, colunas e comparações.',count:12,includeAreas:['Gráficos']},
@@ -243,7 +228,7 @@ const PT3_EXAM = (() => {
       {key:'grau',title:'Fase Grau e Sentidos',emoji:'💛',description:'Tamanho, afeto, contexto e humor em tirinha.',count:10,includeAreas:['Grau']},
       {key:'dicionario',title:'Fase Dicionário',emoji:'📚',description:'Verbetes, sentidos, sinônimos e maneiras de evitar repetição.',count:10,includeAreas:['Dicionário']},
       {key:'pronomes',title:'Fase Pronomes',emoji:'🗣️',description:'Pessoas do discurso, referentes e concordância.',count:14,includeAreas:['Pronomes']},
-      {key:'all',title:'Simulado Final',emoji:'🎯',description:'30 questões, com participação de todas as nove áreas do roteiro.',count:30,includeAreas:'all',balanced:true}
+      {key:'all',title:'Simulado Final',emoji:'🎯',description:'30 questões, com participação de todas as nove áreas da prova.',count:30,includeAreas:'all',balanced:true}
     ]
   };
 })();
