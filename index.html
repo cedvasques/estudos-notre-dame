@@ -1024,9 +1024,11 @@ function showExamSelect() {
   hideAll();
   document.getElementById('examYearTitle').textContent = `Escolha a prova de ${selectedYear.year}`;
   const grid=document.getElementById('examGrid'); grid.innerHTML='';
-  selectedYear.exams.forEach(exam=> {
+  const dateKey = exam => exam.assessmentShortDate.split('/').reverse().join('-');
+  const examsByDate = [...selectedYear.exams].sort((a,b)=>dateKey(b).localeCompare(dateKey(a)));
+  examsByDate.forEach(exam=> {
     const stateClass = exam.status==='Completa' ? 'isReady' : 'isDraft';
-    grid.innerHTML += `<div class="card modeCard ${stateClass}" onclick="selectExam('${exam.id}')"><div class="choiceMeta">${exam.status} · ${exam.assessmentStatus}</div><div class="kpi">${exam.icon}</div><h2>${exam.subject}</h2><div class="assessmentDate">Avaliação de ${exam.assessmentDate}</div><p>${exam.term ? exam.term + ' · ' : ''}${exam.areasLabel}</p></div>`;
+    grid.innerHTML += `<div class="card modeCard ${stateClass}" onclick="selectExam('${exam.id}')"><div class="kpi">${exam.icon}</div><h2>${exam.subject}</h2><div class="assessmentDate">Avaliação de ${exam.assessmentDate}</div><p>${exam.term ? exam.term + ' · ' : ''}${exam.areasLabel}</p></div>`;
   });
   document.getElementById('examSelect').classList.remove('hidden');
   window.scrollTo(0,0);
