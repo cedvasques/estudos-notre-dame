@@ -216,7 +216,7 @@ const PT3_EXAM = (() => {
     term:'3º trimestre', status:'Completa', assessmentDate:'2 de outubro de 2026', assessmentShortDate:'02/10/2026', assessmentStatus:'Próxima avaliação',
     areasLabel:'Fichas, gráficos, textos e gramática',
     intro:'Português do 3º trimestre: entenda os conceitos e pratique com novos exemplos.',
-    description:'Ferramenta de apoio ao estudo para a prova de Português do 3º trimestre do Colégio Notre Dame Campinas, com atividades de leitura, interpretação e gramática.',
+    description:'Pratique leitura, interpretação de textos e gramática para a prova de Português do 3º trimestre.',
     topics:'Conteúdo coberto: ficha técnica; leitura de gráficos; comparação com divulgação científica; adjetivos; gênero, número e grau dos substantivos; dicionário, sinônimos e retomadas; pronomes pessoais. Inclui interpretação, comparação e reescrita em novos contextos.',
     studyPlan:'Leia os cards e responda aos flashcards em voz alta antes de revelar. Faça uma fase por vez. Nos gráficos, comece pelo título, pela fonte e pela legenda. Termine com o simulado, que inclui todas as áreas, e revise as explicações dos erros.',
     lessons, flashcards, questions,
